@@ -1,10 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>알바 회원가입</title>
+    <title>Employee Registration</title>
 </head>
 <body>
-폼
+<form action="#" th:action="@{/register/employee}" th:object="${employeeRegisterDto}" method="post">
+    <label>아이디:</label>
+    <input type="text" th:field="*{userId}" /><br/>
+
+    <label>비밀번호:</label>
+    <input type="password" th:field="*{password}" /><br/>
+
+    <label>이름:</label>
+    <input type="text" th:field="*{userName}" /><br/>
+
+    <label>전화번호:</label>
+    <input type="text" th:field="*{phoneNumber}" /><br/>
+
+    <div th:each="career, iterStat : ${employeeRegisterDto.careerList}">
+        <fieldset>
+            <legend>Career #[[${iterStat.index + 1}]]</legend>
+            <label>편의점 종류:</label>
+            <input type="text" th:field="*{careerList[__${iterStat.index}__].brandName}" /><br/>
+
+            <label>근무개월:</label>
+            <input type="text" th:field="*{careerList[__${iterStat.index}__].workingMonths}" /><br/>
+
+        </fieldset>
+    </div>
+
+    <button type="submit">회원가입</button>
+</form>
+
+<button th:onclick="addCareer()">경력추가</button>
+
+<script>
+    function addCareer() {
+        const form = document.querySelector('form');
+        const careerCount = form.querySelectorAll('fieldset').length;
+        const newCareer = document.createElement('fieldset');
+
+        newCareer.innerHTML = `
+                <legend>Career #${careerCount + 1}</legend>
+                <label>편의점 종류:</label>
+                <input type="text" name="careerList[${careerCount}].brandName" /><br/>
+                <label>근무개월:</label>
+                <input type="text" name="careerList[${careerCount}].workingMonths" /><br/>
+
+            `;
+
+        form.insertBefore(newCareer, form.querySelector('button[type="submit"]'));
+    }
+</script>
 </body>
 </html>
