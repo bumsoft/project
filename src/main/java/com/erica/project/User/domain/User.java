@@ -10,9 +10,17 @@ import java.util.List;
 
 @Getter
 @RequiredArgsConstructor
-@AllArgsConstructor
 @Entity
 public class User {
+
+    public User(String userId, String password, String userName, String phoneNumber, UserRole roles)
+    {
+        this.userId = userId;
+        this.password = password;
+        this.userName = userName;
+        this.phoneNumber = phoneNumber;
+        this.roles = roles;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

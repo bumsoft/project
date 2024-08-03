@@ -1,10 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>고용주 회원가입</title>
+    <title>Employee Registration</title>
 </head>
 <body>
-폼
+<form action="#" th:action="@{/register/employer}" th:object="${employerRegisterDto}" method="post">
+    <label>아이디:</label>
+    <input type="text" th:field="*{userId}" /><br/>
+
+    <label>비밀번호:</label>
+    <input type="password" th:field="*{password}" /><br/>
+
+    <label>이름:</label>
+    <input type="text" th:field="*{userName}" /><br/>
+
+    <label>전화번호:</label>
+    <input type="text" th:field="*{phoneNumber}" /><br/>
+
+
+
+    <button type="submit">회원가입</button>
+</form>
 </body>
 </html>

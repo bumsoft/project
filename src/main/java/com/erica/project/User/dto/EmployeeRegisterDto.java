@@ -16,7 +16,7 @@ public class EmployeeRegisterDto {
     private String userName;
     private String phoneNumber;
 
-    private UserRole userRole = UserRole.ROLE_EMPLOYEE;
+    private UserRole userRole = UserRole.ROLE_EMPLOYER;
 
     private List<Career> careerList;
 }
