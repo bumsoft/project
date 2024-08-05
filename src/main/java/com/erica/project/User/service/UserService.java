@@ -1,7 +1,7 @@
 package com.erica.project.User.service;
 
-import com.erica.project.User.domain.Career;
-import com.erica.project.User.domain.User;
+import com.erica.project.User.domain_x.Career;
+import com.erica.project.User.domain_x.User;
 import com.erica.project.User.dto.EmployeeRegisterDto;
 import com.erica.project.User.dto.EmployerRegisterDto;
 

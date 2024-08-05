@@ -1,4 +1,4 @@
-package com.erica.project.User.domain;
+package com.erica.project.User.domain_x;
 
 public enum UserRole {
     ROLE_ADMIN,

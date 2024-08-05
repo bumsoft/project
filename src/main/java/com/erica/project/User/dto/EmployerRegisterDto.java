@@ -1,11 +1,8 @@
 package com.erica.project.User.dto;
 
-import com.erica.project.User.domain.Career;
-import com.erica.project.User.domain.UserRole;
+import com.erica.project.User.domain_x.UserRole;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
 
 @Getter
 @Setter

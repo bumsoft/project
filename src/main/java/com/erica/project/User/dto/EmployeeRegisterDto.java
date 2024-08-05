@@ -1,7 +1,7 @@
 package com.erica.project.User.dto;
 
-import com.erica.project.User.domain.Career;
-import com.erica.project.User.domain.UserRole;
+import com.erica.project.User.domain_x.Career;
+import com.erica.project.User.domain_x.UserRole;
 import lombok.Getter;
 import lombok.Setter;
 
