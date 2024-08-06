@@ -6,35 +6,16 @@ import lombok.Getter;
 
 import java.util.List;
 
-@Getter
+@Data // Lombok annotation - getter, setter 등등,,
+@NoArgsConstructor // 생성자 자동생성
 @Entity
-public class Employer {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Employer_autoID;
-
-    @Column(nullable = false)
-    private String Employer_name;
-
-    @Column(unique=true, nullable=false)
-    private String Employer_id;
-
-    @Column(nullable = false)
-    private String Employer_pw;
-
-    @Column(unique=true)
-    private String Employer_ph;
-
-    @Column(unique=true)
-    private String Employer_email;
-
-    @Column(nullable = false)
-    private String Employer_joindate;
+@DiscriminatorValue("EMPLOYER")
+public class Employer extends User {
 
     @Column(nullable = false)
     private String Employer_compname;
 
+    @Column(nullable = false)
     @OneToMany
     private List<Job_Posting> Employer_recruitmentlist;
 
