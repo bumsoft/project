@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Data // Lombok annotation - getter, setter 등등,,
 @NoArgsConstructor // 생성자 자동생성
 @Entity
 @DiscriminatorValue("EMPLOYER")

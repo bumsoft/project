@@ -4,7 +4,6 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 import java.util.Date;
 
-@Data
 @NoArgsConstructor
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
