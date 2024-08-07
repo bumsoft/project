@@ -2,7 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>환영합니다</title>
+    <title>오늘도 편의점</title>
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -28,17 +32,25 @@
             border-top-right-radius: 8px;
         }
         p {
-            font-size: 18px;
             margin: 20px 0;
         }
         a {
-            display: inline-block;
+            display: inline-flex;
             margin: 10px;
             padding: 10px 15px;
-            background-color: #007bff;
+            background-color: #45c4f4;
             color: #fff;
             text-decoration: none;
+
             border-radius: 4px;
+            height: 200px;
+            width: 200px;
+
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 25pt;
         }
         a:hover {
             background-color: #0056b3;
@@ -51,8 +63,8 @@
         <h1>환영합니다.</h1>
         <p>메뉴</p>
         <p>
-            <a href="/register/employer">고용주로 회원가입</a>
-            <a href="/register/employee">알바로 회원가입</a>
+            <a href="/register/employer" class="animate__animated animate__slideInLeft">사장</a>
+            <a href="/register/employee" class="animate__animated animate__slideInRight">아르바이트생</a>
         </p>
     </div>
 </div> <!-- /container -->

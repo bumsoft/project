@@ -1,7 +1,7 @@
 package com.erica.project.User.service;
 
 import com.erica.project.User.domain_x.Career;
-import com.erica.project.User.domain_x.User;
+import com.erica.project.User.domain_x.Userx;
 import com.erica.project.User.dto.EmployeeRegisterDto;
 import com.erica.project.User.dto.EmployerRegisterDto;
 import com.erica.project.User.repository.CareerRepository;
@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public void joinEmployee(EmployeeRegisterDto employeeRegisterDto)
     {  // 알바생 회원가입
-        User user = new User(employeeRegisterDto.getUserId(), passwordEncoder.encode(employeeRegisterDto.getPassword())
+        Userx user = new Userx(employeeRegisterDto.getUserId(), passwordEncoder.encode(employeeRegisterDto.getPassword())
                 , employeeRegisterDto.getUserName(),
                 employeeRegisterDto.getPhoneNumber(), employeeRegisterDto.getUserRole());
 
@@ -33,14 +33,14 @@ public class UserServiceImpl implements UserService{
     @Override
     public void joinEmployer(EmployerRegisterDto employerRegisterDto)
     { // 사장님 회원가입
-        User user = new User(employerRegisterDto.getUserId(), passwordEncoder.encode(employerRegisterDto.getPassword()),employerRegisterDto.getUserName(),
+        Userx user = new Userx(employerRegisterDto.getUserId(), passwordEncoder.encode(employerRegisterDto.getPassword()),employerRegisterDto.getUserName(),
                 employerRegisterDto.getPhoneNumber(), employerRegisterDto.getUserRole());
 
         userRepository.save(user);
     }
 
     @Override
-    public void joinCareer(List<Career> careerList, User user)
+    public void joinCareer(List<Career> careerList, Userx user)
     {
         for(Career career : careerList)
         {

@@ -2,7 +2,9 @@ package com.erica.project.User.domain;
 
 import com.erica.project.apply.domain.Job_Posting;
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 

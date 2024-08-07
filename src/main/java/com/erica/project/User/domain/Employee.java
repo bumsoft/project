@@ -1,7 +1,9 @@
 package com.erica.project.User.domain;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.Set;
 
@@ -9,7 +11,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @DiscriminatorValue("employee")
-// JPA 어노테이션으로, 이 엔티티가 User 테이블에 저장될 때 user_type 컬럼의 값으로 "EMPLOYEE"를 사용하도록 지정합니다.
+// JPA 어노테이션으로, 이 엔티티가 User.java 테이블에 저장될 때 user_type 컬럼의 값으로 "EMPLOYEE"를 사용하도록 지정합니다.
 public class Employee extends User{
 
     @Column(nullable = false)

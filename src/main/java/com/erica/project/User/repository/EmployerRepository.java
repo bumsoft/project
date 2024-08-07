@@ -1,5 +1,6 @@
 package com.erica.project.User.repository;
 
+import com.erica.project.User.domain.Employer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
