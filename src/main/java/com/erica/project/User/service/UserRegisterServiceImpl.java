@@ -23,6 +23,10 @@ public class UserRegisterServiceImpl implements UserRegisterService {
     @Override
     public void employeeRegister(EmployeeRegisterDto employeeRegisterDto)
     {
+        //중복회원 등 확인하는 부분 추가
+
+
+
         String encodePW = passwordEncoder.encode(employeeRegisterDto.getPw());
         employeeRegisterDto.setPw(encodePW);
         Employee employee = new Employee(employeeRegisterDto);
@@ -32,6 +36,11 @@ public class UserRegisterServiceImpl implements UserRegisterService {
     @Override
     public void employerRegister(EmployerRegisterDto employerRegisterDto)
     {
+        //중복회원 등 확인하는 부분 추가
+
+
+
+
         String encodePW = passwordEncoder.encode(employerRegisterDto.getPw());
         employerRegisterDto.setPw(encodePW);
         Employer employer = new Employer(employerRegisterDto);
