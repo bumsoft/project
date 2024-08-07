@@ -1,5 +1,6 @@
 package com.erica.project.User.dto;
 
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,25 +8,19 @@ import lombok.Setter;
 @Setter
 public class UserRegisterDto {
 
+    @NotEmpty(message="이름을 입력하세요.")
     private String name;
 
+    @NotEmpty(message="아이디를 입력하세요.")
     private String id;
 
+    @NotEmpty(message="비밀번호를 입력하세요.")
     private String pw;
 
+    @NotEmpty(message="전화번호를 입력하세요.")
     private String ph;
 
+    @NotEmpty(message="이메일을 입력하세요.")
     private String email;
 
-    @Override
-    public String toString()
-    {
-        return "UserRegisterDto{" +
-                "name='" + name + '\'' +
-                ", id='" + id + '\'' +
-                ", pw='" + pw + '\'' +
-                ", ph='" + ph + '\'' +
-                ", email='" + email + '\'' +
-                '}';
-    }
 }

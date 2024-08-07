@@ -10,4 +10,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface UserRepository extends JpaRepository<User, Long> {
     // 공통 쿼리 정의
+    boolean existsByid(String id);
 }
