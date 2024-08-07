@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService{
     private final CareerRepository careerRepository;
     @Override
     public void joinEmployee(EmployeeRegisterDto employeeRegisterDto)
-    {
+    {  // 알바생 회원가입
         User user = new User(employeeRegisterDto.getUserId(), passwordEncoder.encode(employeeRegisterDto.getPassword())
                 , employeeRegisterDto.getUserName(),
                 employeeRegisterDto.getPhoneNumber(), employeeRegisterDto.getUserRole());
@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void joinEmployer(EmployerRegisterDto employerRegisterDto)
-    {
+    { // 사장님 회원가입
         User user = new User(employerRegisterDto.getUserId(), passwordEncoder.encode(employerRegisterDto.getPassword()),employerRegisterDto.getUserName(),
                 employerRegisterDto.getPhoneNumber(), employerRegisterDto.getUserRole());
 
