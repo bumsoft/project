@@ -19,10 +19,10 @@ public class Job_Posting {
 
     //작성자 외래키
     @ManyToOne
-    private Employer Employer_id;
+    private Employer employer;
 
     //공고글에 딸린 지원서 리스트
-    @OneToMany(mappedBy = "Job_Posting", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "job_posting", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Application> Applications;
 
     @Column(nullable = false)

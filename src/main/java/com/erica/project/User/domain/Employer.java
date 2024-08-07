@@ -27,7 +27,7 @@ public class Employer extends User {
 
 
     //사장이 작성한 공고글 리스트
-    @OneToMany(mappedBy = "Employer", cascade = CascadeType.ALL, orphanRemoval = true) //사장삭제시 공고글도 삭제됨
+    @OneToMany(mappedBy = "employer", cascade = CascadeType.ALL, orphanRemoval = true) //사장삭제시 공고글도 삭제됨
     private List<Job_Posting> Employer_recruitmentlist;
 
 }

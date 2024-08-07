@@ -15,17 +15,16 @@ public class Application {
 
     //공고글 외래키
     @ManyToOne
-    private Job_Posting Job_Posting_id;
+    private Job_Posting job_posting;
 
     //지원자 외래키
     @ManyToOne
-    private Employee Employee_id;
+    private Employee employee;
 
     @CreatedDate
     private String Application_date;
 
     @Enumerated
     private Application_State Application_state;
-
 
 }
