@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     // Employee 엔티티에 특화된 쿼리 정의
+    // 내 이름은 김규식
 }
