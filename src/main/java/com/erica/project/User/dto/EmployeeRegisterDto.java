@@ -1,22 +1,36 @@
 package com.erica.project.User.dto;
 
-import com.erica.project.User.domain_x.Career;
-import com.erica.project.User.domain_x.UserRole;
+import com.erica.project.User.domain.BrandName;
+import com.erica.project.User.domain.Employee_Level;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.Set;
 
-@Getter
 @Setter
-public class EmployeeRegisterDto {
+@Getter
+public class EmployeeRegisterDto extends UserRegisterDto {
 
-    private String userId;
-    private String password;
-    private String userName;
-    private String phoneNumber;
 
-    private UserRole userRole = UserRole.ROLE_EMPLOYER;
+    private String employeeAddr;
 
-    private List<Career> careerList;
+    private String employeeWorkarea;
+
+    private String employeeCareer;
+
+   private Employee_Level  EmployeeLevel = Employee_Level.LEVEL1;
+
+   // @Setter
+   // private Set<BrandName> Employee_brands;
+
+
+    @Override
+    public String toString()
+    {
+        return super.toString() +
+                "employeeAddr='" + employeeAddr + '\'' +
+                ", employeeWorkarea='" + employeeWorkarea + '\'' +
+                ", employeeCareer='" + employeeCareer + '\'' +
+                '}';
+    }
 }

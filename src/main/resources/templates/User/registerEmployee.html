@@ -4,53 +4,38 @@
     <title>Employee Registration</title>
 </head>
 <body>
-<form action="#" th:action="@{/register/employee}" th:object="${employeeRegisterDto}" method="post">
-    <label>아이디:</label>
-    <input type="text" th:field="*{userId}" /><br/>
 
-    <label>비밀번호:</label>
-    <input type="password" th:field="*{password}" /><br/>
+<form th:action="@{/register/employee}" method="post">
+    <div th:object="${employeeRegisterDto}">
+        <label>아이디:</label>
+        <input type="text" th:field="*{id}" /><br/>
 
-    <label>이름:</label>
-    <input type="text" th:field="*{userName}" /><br/>
+        <label>비밀번호:</label>
+        <input type="password" th:field="*{pw}" /><br/>
 
-    <label>전화번호:</label>
-    <input type="text" th:field="*{phoneNumber}" /><br/>
+        <label>이름:</label>
+        <input type="text" th:field="*{name}" /><br/>
 
-    <div th:each="career, iterStat : ${employeeRegisterDto.careerList}">
-        <fieldset>
-            <legend>Career #[[${iterStat.index + 1}]]</legend>
-            <label>편의점 종류:</label>
-            <input type="text" th:field="*{careerList[__${iterStat.index}__].brandName}" /><br/>
+        <label>전화번호:</label>
+        <input type="text" th:field="*{ph}" /><br/>
 
-            <label>근무개월:</label>
-            <input type="text" th:field="*{careerList[__${iterStat.index}__].workingMonths}" /><br/>
+        <label>이메일:</label>
+        <input type="text" th:field="*{email}" /><br/>
 
-        </fieldset>
+
+        <label>집주소:</label>
+        <input type="text" th:field="*{employeeAddr}" /><br/>
+
+        <label>근무희망지역:</label>
+        <input type="text" th:field="*{employeeWorkarea}" /><br/>
+
+        <label>경력:</label>
+        <input type="text" th:field="*{employeeCareer}" /><br/>
     </div>
 
     <button type="submit">회원가입</button>
 </form>
 
-<button th:onclick="addCareer()">경력추가</button>
 
-<script>
-    function addCareer() {
-        const form = document.querySelector('form');
-        const careerCount = form.querySelectorAll('fieldset').length;
-        const newCareer = document.createElement('fieldset');
-
-        newCareer.innerHTML = `
-                <legend>Career #${careerCount + 1}</legend>
-                <label>편의점 종류:</label>
-                <input type="text" name="careerList[${careerCount}].brandName" /><br/>
-                <label>근무개월:</label>
-                <input type="text" name="careerList[${careerCount}].workingMonths" /><br/>
-
-            `;
-
-        form.insertBefore(newCareer, form.querySelector('button[type="submit"]'));
-    }
-</script>
 </body>
 </html>

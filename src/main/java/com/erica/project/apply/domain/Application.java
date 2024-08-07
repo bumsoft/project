@@ -13,9 +13,11 @@ public class Application {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Application_id;
 
+    //공고글 외래키
     @ManyToOne
     private Job_Posting Job_Posting_id;
 
+    //지원자 외래키
     @ManyToOne
     private Employee Employee_id;
 

@@ -1,25 +1,36 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Employee Registration</title>
+    <title>사장 회원가입</title>
 </head>
 <body>
-<form action="#" th:action="@{/register/employer}" th:object="${employerRegisterDto}" method="post">
-    <label>아이디:</label>
-    <input type="text" th:field="*{userId}" /><br/>
 
-    <label>비밀번호:</label>
-    <input type="password" th:field="*{password}" /><br/>
+<form th:action="@{/register/employer}" method="post">
+    <div th:object="${employerRegisterDto}">
+        <label>아이디:</label>
+        <input type="text" th:field="*{id}" /><br/>
 
-    <label>이름:</label>
-    <input type="text" th:field="*{userName}" /><br/>
+        <label>비밀번호:</label>
+        <input type="password" th:field="*{pw}" /><br/>
 
-    <label>전화번호:</label>
-    <input type="text" th:field="*{phoneNumber}" /><br/>
+        <label>이름:</label>
+        <input type="text" th:field="*{name}" /><br/>
+
+        <label>전화번호:</label>
+        <input type="text" th:field="*{ph}" /><br/>
+
+        <label>이메일:</label>
+        <input type="text" th:field="*{email}" /><br/>
 
 
+        <label>가게이름:</label>
+        <input type="text" th:field="*{employerCompname}" /><br/>
+
+    </div>
 
     <button type="submit">회원가입</button>
 </form>
+
+
 </body>
 </html>
