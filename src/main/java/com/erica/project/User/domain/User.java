@@ -9,7 +9,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.Date;
 
-@Data
 @NoArgsConstructor
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
