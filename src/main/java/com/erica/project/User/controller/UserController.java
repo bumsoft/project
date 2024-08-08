@@ -3,13 +3,17 @@ package com.erica.project.User.controller;
 import com.erica.project.User.dto.EmployeeRegisterDto;
 import com.erica.project.User.dto.EmployerRegisterDto;
 import com.erica.project.User.exception.UserAlreadyExistException;
+import com.erica.project.User.service.UserDeleteService;
 import com.erica.project.User.service.UserRegisterService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @RequiredArgsConstructor
@@ -82,7 +86,14 @@ public class UserController {
         return "User/userPage";
     }
 
+// 회원 탈퇴 -- template html 만들어야 함 UserPage.html에 회원탈퇴 바튼 추가 후 클릭하면 삭제시키는 동작
+    //@Autowired
+    private UserDeleteService userDeleteService; // 필드주입 or 생성자 주입..>
 
+    @DeleteMapping("/user/delete/id")
+    public void deleteUser(@PathVariable Long id){
+        userDeleteService.deleteUser(id);
+    }
 
 
 
