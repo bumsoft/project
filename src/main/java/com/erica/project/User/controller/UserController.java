@@ -95,7 +95,7 @@ public class UserController {
     }
 
 
-
+// 회원 정보 수정할 때
 
 //    @PostMapping("register/employer")
 //    public String registerEmployer(EmployerRegisterDto employerRegisterDto, Model model)
