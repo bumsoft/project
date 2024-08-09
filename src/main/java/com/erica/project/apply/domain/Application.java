@@ -3,11 +3,20 @@ package com.erica.project.apply.domain;
 import com.erica.project.User.domain.Employee;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 
 @Entity
 @Getter
+@RequiredArgsConstructor
 public class Application {
+
+    public Application(Job_Posting job_posting, Employee employee)
+    {
+        this.job_posting = job_posting;
+        this.employee = employee;
+        Application_state = Application_State.WAITING;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
