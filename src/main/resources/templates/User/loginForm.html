@@ -1,10 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>로그인</title>
+    <link rel="stylesheet" href="/LF/styles.css">
 </head>
 <body>
-폼
+<div class="wrapper">
+    <div class="container">
+        <div class="sign-in-container2">
+            <form th:action="@{/login}" method="post">
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+                <h1>Sign In</h1>
+                <div th:if="${param.error}">
+                    ID또는 비밀번호를 확인해주세요.
+                </div>
+                <div class="social-links">
+                    <div>
+                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    </div>
+                    <div>
+                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    </div>
+                    <div>
+                        <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+                <span>or use your account</span>
+                <input class="login" type="text" id="UserId" name="username" placeholder="아이디를 입력하세요." />
+                <input class="login" type="password" id="Password" name="password" placeholder="비밀번호를 입력하세요." />
+                <button class="form_btn">로그인</button>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>

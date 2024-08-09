@@ -14,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor // 생성자 자동생성
 @Entity
 @DiscriminatorValue("EMPLOYER")
+@Getter
 public class Employer extends User {
 
     public Employer(EmployerRegisterDto employerRegisterDto)

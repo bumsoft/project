@@ -3,8 +3,10 @@ package com.erica.project.User.repository;
 import com.erica.project.User.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
+
 /**
- * 유저 삭제시, Employer리포 또는Employee리포에서 삭제한 뒤, User리포에서 한번 더 삭제해줘야댐
+ * UserRepo에서만 삭제해줘도 되네
  *
  *
  */
@@ -14,9 +16,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
     boolean existsByid(String id);
 
     // User 회원탈퇴. 삭제
-    static void deleteUserByUserId(Long id) {
+    void deleteByautoID(Long autoId);
 
-    }
 
     // 회원정보 수정
+
+    //회원조회(로그인시)
+    Optional<User> findByid(String id);
 }

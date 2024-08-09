@@ -7,7 +7,6 @@ import com.erica.project.User.service.UserDeleteService;
 import com.erica.project.User.service.UserRegisterService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class UserController {
 
     private final UserRegisterService userRegisterService;
+    private final UserDeleteService userDeleteService; // 필드주입 or 생성자 주입..>
 
     @GetMapping("register/employer")
     public String registerEmployer(Model model)
@@ -59,7 +59,7 @@ public class UserController {
             return "User/registerEmployer";
         }
 
-        return "User/userPage";
+        return "redirect:/login";
     }
 
     @PostMapping("register/employee")
@@ -83,16 +83,15 @@ public class UserController {
             return "User/registerEmployee";
         }
 
-        return "User/userPage";
+        return "redirect:/login";
     }
 
 // 회원 탈퇴 -- template html 만들어야 함 UserPage.html에 회원탈퇴 바튼 추가 후 클릭하면 삭제시키는 동작
-    //@Autowired
-    private UserDeleteService userDeleteService; // 필드주입 or 생성자 주입..>
-
+// +탈퇴시 로그아웃 진행되게 추가하기
     @DeleteMapping("/user/delete/id")
-    public void deleteUser(@PathVariable Long id){
+    public String deleteUser(@PathVariable Long id){
         userDeleteService.deleteUser(id);
+        return "redirect:/logout";
     }
 
 

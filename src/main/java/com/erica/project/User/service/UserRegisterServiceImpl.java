@@ -2,6 +2,7 @@ package com.erica.project.User.service;
 
 import com.erica.project.User.domain.Employee;
 import com.erica.project.User.domain.Employer;
+import com.erica.project.User.domain.UserRole;
 import com.erica.project.User.dto.EmployeeRegisterDto;
 import com.erica.project.User.dto.EmployerRegisterDto;
 import com.erica.project.User.dto.UserRegisterDto;
@@ -32,7 +33,7 @@ public class UserRegisterServiceImpl implements UserRegisterService {
             throw new UserAlreadyExistException("이미 존재하는 아이디");
         }
 
-
+        employeeRegisterDto.setRole(UserRole.EMPLOYEE);
 
         String encodePW = passwordEncoder.encode(employeeRegisterDto.getPw());
         employeeRegisterDto.setPw(encodePW);
@@ -49,7 +50,7 @@ public class UserRegisterServiceImpl implements UserRegisterService {
             throw new UserAlreadyExistException("이미 존재하는 아이디");
         }
 
-
+        employerRegisterDto.setRole(UserRole.EMPLOYER);
 
         String encodePW = passwordEncoder.encode(employerRegisterDto.getPw());
         employerRegisterDto.setPw(encodePW);

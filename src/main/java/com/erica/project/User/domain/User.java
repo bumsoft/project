@@ -1,6 +1,7 @@
 package com.erica.project.User.domain;
 import com.erica.project.User.dto.UserRegisterDto;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -16,6 +17,7 @@ import java.util.Date;
 // 이 전략은 모든 하위 클래스의 데이터가 하나의 테이블에 저장되는 방식입니다.
 @DiscriminatorColumn(name = "user")
 @EntityListeners(AuditingEntityListener.class)
+@Getter
 public abstract class User {
 
     public User(UserRegisterDto userRegisterDto)
@@ -25,6 +27,7 @@ public abstract class User {
         this.ph = userRegisterDto.getPh();
         this.name = userRegisterDto.getName();
         this.email = userRegisterDto.getEmail();
+        this.role = userRegisterDto.getRole();
     }
 
     @Id
@@ -49,4 +52,9 @@ public abstract class User {
     @Column(nullable = false)
     @CreatedDate
     private String joindate;
+
+    @Enumerated
+    @Column(nullable = false)
+    private UserRole role;
+
 }
