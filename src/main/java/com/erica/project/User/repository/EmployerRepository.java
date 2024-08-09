@@ -8,8 +8,10 @@ import org.springframework.stereotype.Repository;
 public interface EmployerRepository extends JpaRepository<Employer, Long> {
     // Employer 엔티티에 특화된 쿼리 메서드를 정의
 
-    // 회뤙탈퇴. 삭제 로직
+    // 회원탈퇴. 삭제 로직
     static void deleteEmployerByUserId(Long id) {
 
     }
+
+
 }
