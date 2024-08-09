@@ -26,8 +26,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final Job_PostingRepository jobPostingRepository;
     private final ApplicationRepository applicationRepository;
 
+
     @Override
-    public List<Job_Posting> getAllJobPostings() {
+    public List<Job_Posting> getAllJobPostings()
+    {
         return jobPostingRepository.findAll();
     }
 
@@ -39,24 +41,42 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Job_Posting applyForJob(Long jobId, Long userId) {
-        return null;
+    public Job_Posting applyForJob(Long jobId, Long userId)
+    {
+        Optional<Job_Posting> job = jobPostingRepository.findById(jobId);
+        if(job.isEmpty())
+        {
+            //예외천국
+        }
+        Job_Posting jobPosting = job.get();
+
+                Employee employee = this.employeeRepository.findById(userId);
+        Application application = new Application(jobPosting,employee);
+
+        applicationRepository.save(application);
+
     }
 
     @Override
-    public List<Job_Posting> getJobPostingsByDate(LocalDate date) {
+    public List<Job_Posting> getJobPostingsByDate(LocalDate date)
+    {
         return jobPostingRepository.findByDate(date);
     }
 
     @Override
-    public List<EmployeeRegisterDto> getApplicationStatus(Long userId) { // 지원 현황 조회
+    public List<EmployeeRegisterDto> getApplicationStatus(Long userId)
+    { // 지원 현황 조회
         return List.of();
     }
 
     @Override
-    public List<Job_Posting> getApplicationsByUser(Long userId) { // 지원한 공고 리스트 조회
+    public List<Job_Posting> getApplicationsByUser(Long userId)
+    { // 지원한 공고 리스트 조회
         Employee employee = employeeRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
         return jobPostingRepository.findByEmployee(userId);
     }
+
+
+
 }
