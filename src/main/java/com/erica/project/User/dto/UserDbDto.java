@@ -15,7 +15,7 @@ public class UserDbDto  {
     private String email;
 
     public UserDbDto(UserRegisterDto userRegisterDto) {
-        this.id = userRegisterDto.getId();
+        this.id = userRegisterDto.getUsername();
         this.pw = userRegisterDto.getPw();
         this.ph = userRegisterDto.getPh();
         this.email = userRegisterDto.getEmail();

@@ -8,7 +8,7 @@
 <form th:action="@{/register/employer}" method="post">
     <div th:object="${employerRegisterDto}">
         <label>아이디:</label>
-        <input type="text" th:field="*{id}" /><br/>
+        <input type="text" th:field="*{username}" /><br/>
 
         <label>비밀번호:</label>
         <input type="password" th:field="*{pw}" /><br/>

@@ -11,29 +11,29 @@ import org.springframework.data.annotation.CreatedDate;
 @RequiredArgsConstructor
 public class Application {
 
-    public Application(Job_Posting job_posting, Employee employee)
+    public Application(JobPost jobPost, Employee employee)
     {
-        this.job_posting = job_posting;
+        this.jobPost = jobPost;
         this.employee = employee;
-        Application_state = Application_State.WAITING;
+        applicationState = ApplicationState.WAITING;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Application_id;
+    private Long application_id;
 
     //공고글 외래키
     @ManyToOne
-    private Job_Posting job_posting;
+    private JobPost jobPost;
 
     //지원자 외래키
     @ManyToOne
     private Employee employee;
 
     @CreatedDate
-    private String Application_date;
+    private String applyDate;
 
-    @Enumerated
-    private Application_State Application_state;
+    @Enumerated(EnumType.STRING)
+    private ApplicationState applicationState;
 
 }

@@ -28,7 +28,7 @@ public class UserRegisterServiceImpl implements UserRegisterService {
     public void employeeRegister(EmployeeRegisterDto employeeRegisterDto) throws UserAlreadyExistException
     {
         //중복회원 등 확인하는 부분 추가
-        if(idCheck(employeeRegisterDto.getId())) //아이디가 있다면
+        if(idCheck(employeeRegisterDto.getUsername())) //아이디가 있다면
         {
             throw new UserAlreadyExistException("이미 존재하는 아이디");
         }
@@ -45,7 +45,7 @@ public class UserRegisterServiceImpl implements UserRegisterService {
     public void employerRegister(EmployerRegisterDto employerRegisterDto) throws UserAlreadyExistException
     {
         //중복회원 등 확인하는 부분 추가
-        if(idCheck(employerRegisterDto.getId())) //아이디가 있다면
+        if(idCheck(employerRegisterDto.getUsername())) //아이디가 있다면
         {
             throw new UserAlreadyExistException("이미 존재하는 아이디");
         }
@@ -62,6 +62,6 @@ public class UserRegisterServiceImpl implements UserRegisterService {
     @Override
     public boolean idCheck(String id)
     {
-        return userRepository.existsByid(id);
+        return userRepository.existsByusername(id);
     }
 }

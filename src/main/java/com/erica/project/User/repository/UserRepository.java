@@ -13,20 +13,11 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long> {
     // 공통 쿼리 정의
     // 중복 id 확인
-    boolean existsByid(String id);
+    boolean existsByusername(String id);
 
     // User 회원탈퇴. 삭제
-    void deleteByautoID(Long autoId);
-
-
-    // 회원정보 수정 - update..? db에서 entity 가져온다음에 Entity 수정하고 save
-    // 비밀번호 변경
-    void updateUserPw(Long id, String pw);
-
-    // 휴대폰 번호 변경
-    void updateUserPh(Long id, String ph);
-    //
+    void deleteById(Long user_id);
 
     //회원조회(로그인시)
-    Optional<User> findByid(String id);
+    Optional<User> findByusername(String id);
 }

@@ -20,7 +20,7 @@ public class UserDeleteService {
     private EmployeeRepository employeeRepository;
 
     @Transactional
-    public void deleteUser(Long userId) {
+    public void deleteUser(Long user_id) {
 
         // Employee 삭제
         //EmployeeRepository.deleteEmployeeByUserId(userId);
@@ -29,6 +29,6 @@ public class UserDeleteService {
         //EmployerRepository.deleteEmployerByUserId(userId);
 
         // User 삭제
-        UserRepository.deleteByautoID(userId);
+        userRepository.deleteById(user_id);
     }
 }

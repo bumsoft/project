@@ -1,15 +1,11 @@
 package com.erica.project.User.domain;
 import com.erica.project.User.dto.UserRegisterDto;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import java.util.Date;
 
 @NoArgsConstructor
 @Entity
@@ -24,9 +20,9 @@ public abstract class User {
 
     public User(UserRegisterDto userRegisterDto)
     {
-        this.id = userRegisterDto.getId();
-        this.pw = userRegisterDto.getPw();
-        this.ph = userRegisterDto.getPh();
+        this.username = userRegisterDto.getUsername();
+        this.password = userRegisterDto.getPw();
+        this.phoneNumber = userRegisterDto.getPh();
         this.name = userRegisterDto.getName();
         this.email = userRegisterDto.getEmail();
         this.role = userRegisterDto.getRole();
@@ -34,26 +30,26 @@ public abstract class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long autoID;
+    private Long user_id;
 
     @Column(nullable = false)
     private String name;
 
     @Column(nullable = false, unique = true)
-    private String id;
+    private String username;
 
     @Column(nullable = false)
-    private String pw;
+    private String password;
 
     @Column(nullable = false, unique = true)
-    private String ph;
+    private String phoneNumber;
 
     @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
     @CreatedDate
-    private String joindate;
+    private String joinDate;
 
     @Enumerated
     @Column(nullable = false)

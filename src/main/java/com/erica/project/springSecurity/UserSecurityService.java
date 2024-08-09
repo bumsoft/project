@@ -24,7 +24,7 @@ public class UserSecurityService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
     {
-        Optional<User> _user = userRepository.findByid(username);
+        Optional<User> _user = userRepository.findByusername(username);
         if(_user.isEmpty())
         {
             throw new UsernameNotFoundException("존재하지않는아이디입니다.");
@@ -45,6 +45,6 @@ public class UserSecurityService implements UserDetailsService {
             grantedAuthorities.add(new SimpleGrantedAuthority(UserRole.EMPLOYER.getValue()));
         }
 
-        return new org.springframework.security.core.userdetails.User(user.getId(), user.getPw(), grantedAuthorities);
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
     }
 }

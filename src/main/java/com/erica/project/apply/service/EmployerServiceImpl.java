@@ -1,51 +1,73 @@
 package com.erica.project.apply.service;
 
-import com.erica.project.User.domain.Employee;
-import com.erica.project.apply.domain.Application_State;
-import com.erica.project.apply.domain.Job_Posting;
-import com.erica.project.apply.dto.Job_PostingDto;
-import com.erica.project.apply.repository.Job_PostingRepository;
+import com.erica.project.User.repository.EmployeeRepository;
+import com.erica.project.apply.dto.common.Response_JobPostDto;
+import com.erica.project.apply.dto.employer.Request_JobPostDto;
+import com.erica.project.apply.dto.employer.Response_ApplicationDto;
+import com.erica.project.apply.repository.ApplicationRepository;
+import com.erica.project.apply.repository.JobPostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class EmployerServiceImpl implements EmployerService{
+@Transactional
+//Dto변환은 모두 DtoConverter에 만들어놨으니, DtoConverter이용하여 변환하면 됨!!
+public class EmployerServiceImpl implements EmployerService {
 
-    private final Job_PostingRepository jobPostingRepository;
+    private final EmployeeRepository employeeRepository;
+    private final JobPostRepository jobPostRepository;
+    private final ApplicationRepository applicationRepository;
+
+    // 공고 등록
     @Override
-    public Job_Posting saveJobPost(Job_PostingDto job_postingDto)
+    public boolean saveJobPost(Request_JobPostDto job_postingDto)
     {
-        Job_Posting job_posting = new Job_Posting(job_postingDto.getEmployer(), job_postingDto.getEmployer_compname(), job_postingDto.getLocation(),
-                job_postingDto.getJob_Posting_salaryPerTime(),job_postingDto.getJob_Posting_workdate(),job_postingDto.getJob_Posting_worktime());
-
-        return jobPostingRepository.save(job_posting);
+        return false;
     }
 
-
+    // 작성한 공고글 리스트 반환
     @Override
-    public List<Employee> getApplicants(int Job_Posting_id)
+    public List<Response_JobPostDto> getJobPosts(String username)
     {
-        return null;
+        return List.of();
     }
 
+    //작성한 공고글 중 RECRUITING상태의 공고글 리스트 반환
     @Override
-    public Employee getApplicantsInfo(int Employee_id)
+    public List<Response_JobPostDto> getJobPosts_RECRUITING(String username)
     {
-        return null;
+        return List.of();
     }
 
+    //작성한 공고글 중 COMPLETED상태의 공고글 리스트 반환
     @Override
-    public Application_State AcceptOrReject(int Application_id, boolean accept)
+    public List<Response_JobPostDto> getJobPosts_COMPLETED(String username)
     {
-        return null;
+        return List.of();
     }
 
+    // 공고글(jobPost_id)의 Application 리스트 반환(dto로)
     @Override
-    public Employee giveEmployeeLevel(int Employee_id)
+    public List<Response_ApplicationDto> getApplications(Long jobPost_id)
     {
-        return null;
+        return List.of();
+    }
+
+    //지원서 상태 수락으로 변경 및 공고글 상태 완료로 변경
+    @Override
+    public boolean acceptApplication(Long jobPost_id, Long application_id)
+    {
+        return false;
+    }
+
+    //공고글 삭제하기
+    @Override
+    public boolean deleteJobPost(Long jobPost_id)
+    {
+        return false;
     }
 }

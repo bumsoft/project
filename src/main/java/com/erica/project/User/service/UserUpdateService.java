@@ -2,7 +2,6 @@ package com.erica.project.User.service;
 
 import com.erica.project.User.domain.User;
 import com.erica.project.User.dto.UserDbDto;
-import com.erica.project.User.dto.UserRegisterDto;
 import com.erica.project.User.dto.UserUpdateDto;
 import com.erica.project.User.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,23 +18,23 @@ public class UserUpdateService {
     // 비밀번호 수정
     public void updatePw(UserDbDto userDbDto) {
         // dto로 일단 가져와.
-        Optional<User> _user = userRepository.findByid(userDbDto.getId());
+        Optional<User> _user = userRepository.findByusername(userDbDto.getId());
         if(_user.isEmpty()){
             // 예외처리
         }
         User user = _user.get();
-        user.setPw(UserUpdateDto.getPw()); //
+        user.setPassword(userDbDto.getPw()); //
         userRepository.save(user);
     }
 
     // 전화번호 수정
     public void updatePh(UserDbDto userDbDto) {
-        Optional<User> _user = userRepository.findByid(userDbDto.getId());
+        Optional<User> _user = userRepository.findByusername(userDbDto.getId());
         if(_user.isEmpty()){
             // 예외처리
         }
         User user = _user.get();
-        user.setPh(UserUpdateDto.getPh()); //
+        user.setPhoneNumber(userDbDto.getPh()); //
         userRepository.save(user); //
     }
 
