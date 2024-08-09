@@ -34,16 +34,16 @@ public abstract class User {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String id;
 
     @Column(nullable = false)
     private String pw;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String ph;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
