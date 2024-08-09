@@ -1,12 +1,12 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>오늘도 편의점</title>
     <link
             rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-    />
+            href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -14,25 +14,36 @@
             margin: 0;
             padding: 0;
         }
+        .wrapper {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #ebecf0;
+            overflow: hidden;
+        }
         .container {
-            width: 70%;
-            margin: 50px auto;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            padding: 20px;
-            text-align: center;
+            border-radius: 10px;
+            box-shadow: -5px -5px 10px #fff, 5px 5px 10px #babebc;
+            position: absolute;
+            width: 768px;
+            min-height: 480px;
+            overflow: hidden;
         }
         h1 {
             padding: 20px;
-            background-color: #23759f;
-            color: #fff;
-            margin: -20px -20px 20px -20px;
+            color: #000000;
+            /*margin: -20px -20px 20px -20px;*/
             border-top-left-radius: 8px;
             border-top-right-radius: 8px;
+            text-align: center;
         }
         p {
             margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* 버튼 사이의 간격 */
         }
         a {
             display: inline-flex;
@@ -52,20 +63,39 @@
 
             font-size: 25pt;
         }
+        a.a {
+            height: 20px;
+            width: 50px;
+            display: inline-block;
+            padding: 10px 15px;
+            font-size: 12px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            background-color: rgb(4, 197, 174);
+            border: none;
+            border-radius: 4px;
+            margin: 5px;
+        }
         a:hover {
             background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <div>
-        <h1 style="font-family: 궁서">오늘도 편의점</h1>
-        <p>
-            <a style="font-family: 궁서" href="/register/employer" class="animate__animated animate__fadeInTopRight">사장</a>
-            <a style="font-family: 궁서" href="/register/employee" class="animate__animated animate__fadeInTopLeft">아르바이트생</a>
-        </p>
+<div class="wrapper">
+    <div class="container">
+        <div>
+            <h1 style="font-family: 궁서">오늘도 편의점</h1>
+            <a class="a" sec:authorize="isAnonymous()" th:href="@{/login}" >로그인</a>
+            <a class="a" sec:authorize="isAuthenticated()" th:href="@{/logout}" >로그아웃</a>
+            <p>
+                <a  style="font-family: 궁서" href="/register/employer" class="animate__animated animate__fadeInTopRight">사장</a>
+                <a  style="font-family: 궁서" href="/register/employee" class="animate__animated animate__fadeInTopLeft">아르바이트생</a>
+            </p>
+        </div>
     </div>
-</div> <!-- /container -->
+</div>
 </body>
 </html>

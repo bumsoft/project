@@ -2,40 +2,88 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Employee Registration</title>
+    <link rel="stylesheet" href="/LF/styles.css">
+    <script type="module" src="/LF/script.js"></script>
 </head>
+
 <body>
+<div class="wrapper">
+    <div class="container">
+        <div class="sign-up-container">
+            <form th:action="@{/register/employee}" method="post" th:object="${employeeRegisterDto}">
+                <h1>알바 회원가입</h1>
+                <div th:if="${param.error}">
+                    ID또는 비밀번호를 확인해주세요.
+                </div>
+                <div class="social-links">
+                    <div>
+                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    </div>
+                    <div>
+                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    </div>
+                    <div>
+                        <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+                <span>or use your email for registration</span>
+                <input type="text" class="register" th:field="*{id}" placeholder="아이디" /><br/>
 
-<form th:action="@{/register/employee}" method="post">
-    <div th:object="${employeeRegisterDto}">
-        <label>아이디:</label>
-        <input type="text" th:field="*{id}" /><br/>
+                <input class="register" type="password" th:field="*{pw}" placeholder="비밀번호"/><br/>
 
-        <label>비밀번호:</label>
-        <input type="password" th:field="*{pw}" /><br/>
+                <input class="register" type="text" th:field="*{name}" placeholder="이름"/><br/>
 
-        <label>이름:</label>
-        <input type="text" th:field="*{name}" /><br/>
+                <input class="register" type="text" th:field="*{ph}" placeholder="전화번호"/><br/>
 
-        <label>전화번호:</label>
-        <input type="text" th:field="*{ph}" /><br/>
+                <input class="register" type="text" th:field="*{email}" placeholder="이메일"/><br/>
 
-        <label>이메일:</label>
-        <input type="text" th:field="*{email}" /><br/>
+                <input class="register" type="text" th:field="*{employeeAddr}" placeholder="주소"/><br/>
+
+                <input class="register" type="text" th:field="*{employeeWorkarea}" placeholder="근무희망지"/><br/>
+
+                <input class="register" type="text" th:field="*{employeeCareer}" placeholder="경력입력" /><br/>
 
 
-        <label>집주소:</label>
-        <input type="text" th:field="*{employeeAddr}" /><br/>
-
-        <label>근무희망지역:</label>
-        <input type="text" th:field="*{employeeWorkarea}" /><br/>
-
-        <label>경력:</label>
-        <input type="text" th:field="*{employeeCareer}" /><br/>
+                <button class="form_btn">회원가입</button>
+            </form>
+        </div>
+        <div class="sign-in-container">
+            <form th:action="@{/login}" method="post">
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+                <h1>로그인</h1>
+                <div th:if="${param.error}">
+                    ID또는 비밀번호를 확인해주세요.
+                </div>
+                <div class="social-links">
+                    <div>
+                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    </div>
+                    <div>
+                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    </div>
+                    <div>
+                        <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+                <span>or use your account</span>
+                <input class="login" type="text" id="UserId" name="username" placeholder="아이디를 입력하세요." />
+                <input class="login" type="password" id="Password" name="password" placeholder="비밀번호를 입력하세요." />
+                <button class="form_btn">로그인</button>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay-left">
+                <h1>이미 회원이신가요?</h1>
+                <p>로그인으로 서비스이용</p>
+                <button id="signIn" class="overlay_btn">로그인</button>
+            </div>
+            <div class="overlay-right">
+                <h1>처음이신가요?</h1>
+                <p>회원가입으로 서비스이용</p>
+                <button id="signUp" class="overlay_btn">회원가입</button>
+            </div>
+        </div>
     </div>
-
-    <button type="submit">회원가입</button>
-</form>
-
-
+</div>
 </body>
 </html>

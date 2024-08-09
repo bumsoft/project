@@ -29,12 +29,12 @@ public class SecurityConfig {
 
                 .formLogin((formLogin)->formLogin
                         .loginPage("/login")
-                        .defaultSuccessUrl("/"))
+                        .defaultSuccessUrl("/")) //로그인시 url
 
                 .logout((logout)->logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                         .logoutSuccessUrl("/")
-                        .invalidateHttpSession(true))
+                        .invalidateHttpSession(true)) //세션삭제
                 ;
 
         return http.build();
@@ -46,6 +46,8 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+
+    // 서비스와 인코더를 이용해인증과 권한부여 프로세스를 처리함.
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception
     {
