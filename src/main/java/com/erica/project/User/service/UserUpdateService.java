@@ -1,6 +1,7 @@
 package com.erica.project.User.service;
 
 import com.erica.project.User.domain.User;
+import com.erica.project.User.dto.UserDbDto;
 import com.erica.project.User.dto.UserRegisterDto;
 import com.erica.project.User.dto.UserUpdateDto;
 import com.erica.project.User.repository.UserRepository;
@@ -16,9 +17,9 @@ public class UserUpdateService {
     private UserRepository userRepository;
 
     // 비밀번호 수정
-    public void updatePw(UserRegisterDto userRegisterDto) {
+    public void updatePw(UserDbDto userDbDto) {
         // dto로 일단 가져와.
-        Optional<User> _user = userRepository.findByid(userRegisterDto.getId());
+        Optional<User> _user = userRepository.findByid(userDbDto.getId());
         if(_user.isEmpty()){
             // 예외처리
         }
@@ -28,14 +29,14 @@ public class UserUpdateService {
     }
 
     // 전화번호 수정
-    public void updatePh(UserRegisterDto userRegisterDto) {
-        Optional<User> _user = userRepository.findByid(userRegisterDto.getId());
+    public void updatePh(UserDbDto userDbDto) {
+        Optional<User> _user = userRepository.findByid(userDbDto.getId());
         if(_user.isEmpty()){
             // 예외처리
         }
         User user = _user.get();
         user.setPh(UserUpdateDto.getPh()); //
-        userRepository.save(user); // 
+        userRepository.save(user); //
     }
 
 }
