@@ -7,8 +7,13 @@ import com.erica.project.User.repository.EmployeeRepository;
 import com.erica.project.User.repository.JobPostingRepository;
 import com.erica.project.User.repository.UserRepository;
 import com.erica.project.apply.domain.Job_Posting;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -27,9 +32,18 @@ public class EmployeeServiceImpl implements EmployeeService {
         return jobPostingRepository.findAll();
     }
 
-    @Override
-    public List<Job_Posting> searchJobPostingByKeyword(String Keyword) {
-        return jobPostingRepository.findbyKeyword(Keyword);
+    @Override // 공고 제목, 공고 내용, 공고 작성자 -> kw 존재?
+    public Specification<Job_Posting> searchJobPostingByKeyword(String Kw) {
+        return new Specification<Job_Posting>() {
+            @Override
+            public Predicate toPredicate(Root<Job_Posting> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+                query.distinct(true); // 중복 제거
+                return null;
+            }
+
+            private static final long serialVersionUID = 1L;
+
+        };
     }
 
     @Override

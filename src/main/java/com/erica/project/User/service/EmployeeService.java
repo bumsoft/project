@@ -2,6 +2,7 @@ package com.erica.project.User.service;
 
 import com.erica.project.User.dto.EmployeeRegisterDto;
 import com.erica.project.apply.domain.Job_Posting;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -13,7 +14,7 @@ public interface EmployeeService {
     List<Job_Posting> getAllJobPostings();
 
     // 공고 검색 - 검색 방법 1. 키워드로 검색/ 2. 지도에서 검색
-    List<Job_Posting> searchJobPostingByKeyword(String Keyword);
+    Specification<Job_Posting> searchJobPostingByKeyword(String Keyword);
 
     // 공고보고 지원,
     Job_Posting applyForJob(Long jobId, Long userId);
