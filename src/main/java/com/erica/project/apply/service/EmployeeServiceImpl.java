@@ -1,6 +1,9 @@
 package com.erica.project.apply.service;
 
+import com.erica.project.User.domain.Employee;
+import com.erica.project.User.exception.UserNotFoundException;
 import com.erica.project.User.repository.EmployeeRepository;
+import com.erica.project.apply.domain.Application;
 import com.erica.project.apply.domain.JobPost;
 import com.erica.project.apply.dto.DtoConverter;
 import com.erica.project.apply.dto.common.Response_JobPostDto;
@@ -13,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static com.erica.project.apply.dto.DtoConverter.ToJobPostDto;
 
@@ -35,15 +40,31 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         // JobPost Entity를 Dto로 변환 - dtoconverter 활용
         return List.of(DtoConverter.ToJobPostDto(jobPost));
+        //return jobPost.stream().map(DtoConverter.ToJobPostDto(jobPost)).collect(Collectors.toList());
     }
 
 
-    //공고글에 신청하는(지원서작성) 기능(Application생성후 저장) (username을 통해서, Employee객체를 얻고, 이걸 이용해 Application생성)
+    //공고글에 신청하는(지원서작성) 기능(Application생성후 저장)
+    // (username을 통해서, Employee객체를 얻고, 이걸 이용해 Application생성)
     @Override
-    public boolean applyJobPost(Long jobPost_id, String username)
-    {
+    public boolean applyJobPost(Long jobPost_id, String username) throws UserNotFoundException {
+        // Employee repository에 findbyUsername 구현 - username으로 employee 객체 얻고
+        Optional<Employee> _employee = EmployeeRepository.findByUsername(username);
+        Employee employee;
+        if (_employee.isEmpty()) {
+            throw new UserNotFoundException("Username is not found");
+        } else {
+            employee = _employee.get();
+        }
+
+        // Application 생성, 저장
+        // application 객체 생성 후 필드 매핑 후 저장
+        // Application Entity 수정..?
+        //Application application = new Application(jobPost_id, employee);
+
         return false;
     }
+
 
     //username이 신청한 지원서 + 공고글이 합쳐진 dto리스트를 반환하는 메서드
     // DtoConverter.ToPostwithApplicationDto사용
