@@ -1,6 +1,5 @@
 package com.erica.project.apply.service;
 
-import ch.qos.logback.core.util.COWArrayList;
 import com.erica.project.User.domain.Employee;
 import com.erica.project.User.exception.UserNotFoundException;
 import com.erica.project.User.repository.EmployeeRepository;
@@ -21,9 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import static com.erica.project.apply.dto.DtoConverter.ToJobPostDto;
-import static com.erica.project.apply.dto.DtoConverter.ToPostwithApplicationDto;
 
 @Service
 @RequiredArgsConstructor
@@ -88,18 +84,26 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Response_PostwithApplicationDto> getApplicationsByusername(String username)
     {
         // username이 작성한 지원서 갖고오기
-        Optional<Application> application = ApplicationRepository.findByusername(username);
+        List<Application> application = ApplicationRepository.findByUsername(username);
         // ToPostwithApplicationDto(Optional<Application> application)
 
         return List.of(DtoConverter.ToPostwithApplicationDto(application));
     }
+
 
     //getApplicationsByusername와 같은기능이지만 로직이 추가됨
     // 추가로직 : 지원서의 상태가 ACCEPT인 것만 반환
     @Override
     public List<Response_PostwithApplicationDto> getApplicationsByusername_ACCEPT(String username)
     {
-        return List.of();
+        List<Application> application = ApplicationRepository.findByUsername(username);
+
+        // 가져온 application 중에서 지원서의 상태가 Accept인 것만 필터링
+        List<Response_PostwithApplicationDto> application_accepted = application.stream()
+                .filter(application -> "ACCPETED".equals(application.getApplicationState()))
+                .collect(Collectors.toList());
+
+        return application_accepted;
     }
 
     //getApplicationsByusername와 같은 기능이지만 로직이 추가됨
@@ -107,6 +111,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<Response_PostwithApplicationDto> getApplicationsByusername_RECRUITING(String username)
     {
+        // username 가져오고
+        List<Application> application = ApplicationRepository.findByUsername(username);
+        // 공고글이 recruiting인 것들 필터링
+        List<Response_PostwithApplicationDto> application_jobpost_recruiting = application.stream()
+                .filter(application -> "RECRUTING".equals(application.getJobPost().getJobPostState()))
+                .collect(Collectors.toList());
+
         return List.of();
     }
 
