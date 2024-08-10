@@ -7,6 +7,7 @@ import com.erica.project.User.repository.EmployeeRepository;
 import com.erica.project.User.repository.EmployerRepository;
 import com.erica.project.apply.domain.Application;
 import com.erica.project.apply.domain.JobPost;
+import com.erica.project.apply.domain.JobPostState;
 import com.erica.project.apply.dto.DtoConverter;
 import com.erica.project.apply.dto.common.Response_JobPostDto;
 import com.erica.project.apply.dto.employee.Response_PostwithApplicationDto;
@@ -40,11 +41,20 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Response_JobPostDto> getJobPostsByLocation(String location)
     {
         // db에서 location, state를 받아서 그 location을 포함하는 JobPost를 list로 반환(repository 활용)
-        List<JobPost> jobPost = jobPostRepository.findByLocationAndState(location, "RECRUITING");
+        List<JobPost> jobPosts = jobPostRepository.findByLocationAndState(location, JobPostState.RECRUITING.getValue());
+        List<Response_JobPostDto> jobPostDtos = new ArrayList<>();
+        for (JobPost jobPost : jobPosts)
+        {
+            jobPostDtos.add(DtoConverter.ToJobPostDto(jobPost));
+        }
+        return jobPostDtos;
 
-        // JobPost Entity를 Dto로 변환 - dtoconverter 활용
-        return List.of(DtoConverter.ToJobPostDto(jobPost));
-        //return jobPost.stream().map(DtoConverter.ToJobPostDto(jobPost)).collect(Collectors.toList());
+        //stream사용시 아래코드.  성능차이는 거의 없어서 익숙한 반복문으로 처리함
+//        List<Response_JobPostDto> jobPostDtos = jobPostRepository.findByLocationAndState(location, JobPostState.RECRUITING.getValue())
+//                .stream()
+//                .map(DtoConverter::ToJobPostDto)
+//                .toList();
+//        return jobPostDtos;
     }
 
 

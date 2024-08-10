@@ -11,7 +11,7 @@ import java.util.List;
 //엔티티를 dto로 변환하는 메서드들을 갖는 클래스
 public class DtoConverter {
 
-    public static Response_JobPostDto ToJobPostDto(List<JobPost> jobPost)
+    public static Response_JobPostDto ToJobPostDto(JobPost jobPost)
     {
         Response_JobPostDto dto = new Response_JobPostDto();
 
