@@ -51,17 +51,21 @@ public class EmployeeServiceImpl implements EmployeeService {
     //공고글에 신청하는(지원서작성) 기능(Application생성후 저장)
     // (username을 통해서, Employee객체를 얻고, 이걸 이용해 Application생성)
     @Override
-    public boolean applyJobPost(Long jobPost_id, String username) {
+    public boolean applyJobPost(Long jobPost_id, String username) throws UserNotFoundException {
 
         // jobPost_id로 db에서 JobPost 객체 넘겨받기
-        JobPost jobPost = jobPostRepository.findById(jobPost_id);
+        Optional<JobPost> jobPostOpt = jobPostRepository.findById(jobPost_id);
+        JobPost jobPost = jobPostOpt.orElseThrow(()-> new UserNotFoundException("User not found"));
 
         // username으로 db에서 Employee 객체 넘겨받기
-        Employee employee = employeeRepository.findByUsername(username);
+        Optional<Employee> employeeOpt = Optional.ofNullable(employeeRepository.findByUsername(username));
+        Employee employee = employeeOpt.orElseThrow(()-> new UserNotFoundException("User not found"));
 
         // Application 생성, 저장
         Application application = new Application(jobPost, employee);
         applicationRepository.save(application);
+
+        return true;
 
     }
 
