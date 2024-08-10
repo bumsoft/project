@@ -1,8 +1,10 @@
 package com.erica.project.apply.service;
 
+import ch.qos.logback.core.util.COWArrayList;
 import com.erica.project.User.domain.Employee;
 import com.erica.project.User.exception.UserNotFoundException;
 import com.erica.project.User.repository.EmployeeRepository;
+import com.erica.project.User.repository.EmployerRepository;
 import com.erica.project.apply.domain.Application;
 import com.erica.project.apply.domain.JobPost;
 import com.erica.project.apply.dto.DtoConverter;
@@ -29,6 +31,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private final JobPostRepository jobPostRepository;
     private final ApplicationRepository applicationRepository;
+    private final EmployerRepository employerRepository;
+    private final EmployeeRepository employeeRepository;
 
     // 지역(String)을 받아서, 그 지역의 공고글 리스트(dto)를 반환하는 메서드
     // 추가로직 :JobPost의 state가 RECRUITING인 것만 반환
@@ -47,22 +51,18 @@ public class EmployeeServiceImpl implements EmployeeService {
     //공고글에 신청하는(지원서작성) 기능(Application생성후 저장)
     // (username을 통해서, Employee객체를 얻고, 이걸 이용해 Application생성)
     @Override
-    public boolean applyJobPost(Long jobPost_id, String username) throws UserNotFoundException {
-        // Employee repository에 findbyUsername 구현 - username으로 employee 객체 얻고
-        Optional<Employee> _employee = EmployeeRepository.findByUsername(username);
-        Employee employee;
-        if (_employee.isEmpty()) {
-            throw new UserNotFoundException("Username is not found");
-        } else {
-            employee = _employee.get();
-        }
+    public boolean applyJobPost(Long jobPost_id, String username) {
+
+        // jobPost_id로 db에서 JobPost 객체 넘겨받기
+        JobPost jobPost = jobPostRepository.findById(jobPost_id);
+
+        // username으로 db에서 Employee 객체 넘겨받기
+        Employee employee = employeeRepository.findByUsername(username);
 
         // Application 생성, 저장
-        // application 객체 생성 후 필드 매핑 후 저장
-        // Application Entity 수정..?
-        //Application application = new Application(jobPost_id, employee);
+        Application application = new Application(jobPost, employee);
+        applicationRepository.save(application);
 
-        return false;
     }
 
 
