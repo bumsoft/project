@@ -23,6 +23,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.erica.project.apply.dto.DtoConverter.ToJobPostDto;
+import static com.erica.project.apply.dto.DtoConverter.ToPostwithApplicationDto;
 
 @Service
 @RequiredArgsConstructor
@@ -80,13 +81,17 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
 
-    //username이 신청한 지원서 + 공고글이 합쳐진 dto리스트를 반환하는 메서드
+    // username이 신청한 지원서 + 공고글이 합쳐진 dto리스트를 반환하는 메서드
     // DtoConverter.ToPostwithApplicationDto사용
     // 지원서는 리포에서 username이 작성한 지원서리스트 가져오면 됨
     @Override
     public List<Response_PostwithApplicationDto> getApplicationsByusername(String username)
     {
-        return List.of();
+        // username이 작성한 지원서 갖고오기
+        Optional<Application> application = ApplicationRepository.findByusername(username);
+        // ToPostwithApplicationDto(Optional<Application> application)
+
+        return List.of(DtoConverter.ToPostwithApplicationDto(application));
     }
 
     //getApplicationsByusername와 같은기능이지만 로직이 추가됨

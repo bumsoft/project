@@ -7,6 +7,7 @@ import com.erica.project.apply.dto.employee.Response_PostwithApplicationDto;
 import com.erica.project.apply.dto.employer.Response_ApplicationDto;
 
 import java.util.List;
+import java.util.Optional;
 
 //엔티티를 dto로 변환하는 메서드들을 갖는 클래스
 public class DtoConverter {
@@ -28,7 +29,7 @@ public class DtoConverter {
         return dto;
     }
 
-    static Response_PostwithApplicationDto ToPostwithApplicationDto(Application application)
+    public static Response_PostwithApplicationDto ToPostwithApplicationDto(Optional<Application> application)
     {
         Response_PostwithApplicationDto dto = new Response_PostwithApplicationDto();
         dto.setJobPost_id(application.getJobPost().getJobPost_id());
