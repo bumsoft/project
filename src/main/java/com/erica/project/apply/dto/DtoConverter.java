@@ -1,16 +1,17 @@
 package com.erica.project.apply.dto;
 
-import com.erica.project.User.domain.Employee;
 import com.erica.project.apply.domain.Application;
 import com.erica.project.apply.domain.JobPost;
 import com.erica.project.apply.dto.common.Response_JobPostDto;
 import com.erica.project.apply.dto.employee.Response_PostwithApplicationDto;
 import com.erica.project.apply.dto.employer.Response_ApplicationDto;
 
+import java.util.List;
+
 //엔티티를 dto로 변환하는 메서드들을 갖는 클래스
 public class DtoConverter {
 
-    static Response_JobPostDto ToJobPostDto(JobPost jobPost)
+    public static Response_JobPostDto ToJobPostDto(List<JobPost> jobPost)
     {
         Response_JobPostDto dto = new Response_JobPostDto();
 

@@ -9,5 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface JobPostRepository extends JpaRepository<JobPost,Long> {
+    // DB에서 가져와야지
+    List<JobPost> findByLocationAndState(String location, String jobPostState);
 
 }

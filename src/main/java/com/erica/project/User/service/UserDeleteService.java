@@ -3,21 +3,20 @@ package com.erica.project.User.service;
 import com.erica.project.User.repository.EmployeeRepository;
 import com.erica.project.User.repository.EmployerRepository;
 import com.erica.project.User.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@RequiredArgsConstructor
 @Service
 public class UserDeleteService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private EmployerRepository employerRepository;
+    private final EmployerRepository employerRepository;
 
-    @Autowired
-    private EmployeeRepository employeeRepository;
+    private final EmployeeRepository employeeRepository;
 
     @Transactional
     public void deleteUser(Long user_id) {
