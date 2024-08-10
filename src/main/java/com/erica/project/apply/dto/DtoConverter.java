@@ -29,7 +29,7 @@ public class DtoConverter {
         return dto;
     }
 
-    public static Response_PostwithApplicationDto ToPostwithApplicationDto(Optional<Application> application)
+    public static Response_PostwithApplicationDto ToPostwithApplicationDto(Application application)
     {
         Response_PostwithApplicationDto dto = new Response_PostwithApplicationDto();
         dto.setJobPost_id(application.getJobPost().getJobPost_id());

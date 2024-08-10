@@ -34,6 +34,7 @@ public class JobPost {
         this.workDate = workDate;
         this.workTimeFrom = workTimeFrom;
         this.workTimeTo = workTimeTo;
+        this.jobPostState = JobPostState.RECRUITING;
     }
 
     @Id

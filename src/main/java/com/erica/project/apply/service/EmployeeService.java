@@ -1,6 +1,8 @@
 package com.erica.project.apply.service;
 
 import com.erica.project.User.exception.UserNotFoundException;
+import com.erica.project.apply.domain.Application;
+import com.erica.project.apply.domain.JobPost;
 import com.erica.project.apply.dto.employee.Response_PostwithApplicationDto;
 import com.erica.project.apply.dto.common.Response_JobPostDto;
 
@@ -15,7 +17,7 @@ public interface EmployeeService {
     List<Response_JobPostDto> getJobPostsByLocation(String location);
 
     //공고글에 신청하는(지원서작성) 기능(Application생성후 저장) (username을 통해서, Employee객체를 얻고, 이걸 이용해 Application생성)
-    boolean applyJobPost(Long jobPost_id, String username) throws UserNotFoundException;
+    Application applyJobPost(Long jobPost_id, String username) throws UserNotFoundException;
 
     //username이 신청한 지원서 + 공고글이 합쳐진 dto리스트를 반환하는 메서드
     // DtoConverter.ToPostwithApplicationDto사용

@@ -12,7 +12,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     Optional<Employee> findById(Long id);
 
-    Employee findByUsername(String username);
+    Optional<Employee> findByUsername(String username);
 
     // 회원탈퇴.삭제 로직
     static void deleteEmployeeByUserId(Long id) {

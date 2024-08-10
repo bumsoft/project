@@ -25,7 +25,7 @@ public class UserRegisterServiceImpl implements UserRegisterService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     @Override
-    public void employeeRegister(EmployeeRegisterDto employeeRegisterDto) throws UserAlreadyExistException
+    public Employee employeeRegister(EmployeeRegisterDto employeeRegisterDto) throws UserAlreadyExistException
     {
         //중복회원 등 확인하는 부분 추가
         if(idCheck(employeeRegisterDto.getUsername())) //아이디가 있다면
@@ -38,11 +38,11 @@ public class UserRegisterServiceImpl implements UserRegisterService {
         String encodePW = passwordEncoder.encode(employeeRegisterDto.getPw());
         employeeRegisterDto.setPw(encodePW);
         Employee employee = new Employee(employeeRegisterDto);
-        employeeRepository.save(employee);
+        return employeeRepository.save(employee);
     }
 
     @Override
-    public void employerRegister(EmployerRegisterDto employerRegisterDto) throws UserAlreadyExistException
+    public Employer employerRegister(EmployerRegisterDto employerRegisterDto) throws UserAlreadyExistException
     {
         //중복회원 등 확인하는 부분 추가
         if(idCheck(employerRegisterDto.getUsername())) //아이디가 있다면
@@ -55,7 +55,7 @@ public class UserRegisterServiceImpl implements UserRegisterService {
         String encodePW = passwordEncoder.encode(employerRegisterDto.getPw());
         employerRegisterDto.setPw(encodePW);
         Employer employer = new Employer(employerRegisterDto);
-        employerRepository.save(employer);
+        return employerRepository.save(employer);
     }
 
     //중복아이디확인 메서드
