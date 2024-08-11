@@ -1,7 +1,6 @@
 package com.erica.project.apply.service;
 
 import com.erica.project.User.domain.Employee;
-import com.erica.project.User.exception.ApplicationNotFoundException;
 import com.erica.project.User.exception.UserNotFoundException;
 import com.erica.project.User.repository.EmployeeRepository;
 import com.erica.project.User.repository.EmployerRepository;
@@ -124,13 +123,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     //지원서 삭제기능
     @Override
-    public boolean deleteApplication(Long application_id) throws ApplicationNotFoundException
+    public boolean deleteApplication(Long application_id)
     {
         // application_id를 받아서 db에서 삭제
         Optional<Application> applicationOpt = applicationRepository.findById(application_id);
         if(applicationOpt.isEmpty()){
-            // 예외처리
-            throw new ApplicationNotFoundException("Application not found");
+            return false;
         }
         applicationRepository.delete(applicationOpt.get());
         return true;
