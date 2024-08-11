@@ -38,7 +38,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Response_JobPostDto> getJobPostsByLocation(String location)
     {
         // db에서 location, state를 받아서 그 location을 포함하는 JobPost를 list로 반환(repository 활용)
-        List<JobPost> jobPosts = jobPostRepository.findByLocationAndJobPostState(location, JobPostState.RECRUITING.getValue());
+        List<JobPost> jobPosts = jobPostRepository.findByLocationAndJobPostState(location, JobPostState.RECRUITING);
         List<Response_JobPostDto> jobPostDtos = new ArrayList<>();
         for (JobPost jobPost : jobPosts)
         {

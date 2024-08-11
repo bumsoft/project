@@ -10,6 +10,6 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
 
     List<Application> findByUsername(String username);
 
-    List<Application> findByUsernameAAndApplicationState(String username, ApplicationState state);
+    List<Application> findByUsernameAndApplicationState(String username, ApplicationState state);
 
 }
