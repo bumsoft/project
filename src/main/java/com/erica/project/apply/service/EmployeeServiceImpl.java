@@ -1,11 +1,11 @@
 package com.erica.project.apply.service;
 
 import com.erica.project.User.domain.Employee;
+import com.erica.project.User.exception.ApplicationNotFoundException;
 import com.erica.project.User.exception.UserNotFoundException;
 import com.erica.project.User.repository.EmployeeRepository;
 import com.erica.project.User.repository.EmployerRepository;
 import com.erica.project.apply.domain.Application;
-import com.erica.project.apply.domain.ApplicationState;
 import com.erica.project.apply.domain.JobPost;
 import com.erica.project.apply.domain.JobPostState;
 import com.erica.project.apply.dto.DtoConverter;
@@ -39,7 +39,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Response_JobPostDto> getJobPostsByLocation(String location)
     {
         // db에서 location, state를 받아서 그 location을 포함하는 JobPost를 list로 반환(repository 활용)
-        List<JobPost> jobPosts = jobPostRepository.findByLocationAndJobPostState(location, JobPostState.RECRUITING);
+        List<JobPost> jobPosts = jobPostRepository.findByLocationAndJobPostState(location, JobPostState.RECRUITING.getValue());
         List<Response_JobPostDto> jobPostDtos = new ArrayList<>();
         for (JobPost jobPost : jobPosts)
         {
@@ -59,19 +59,21 @@ public class EmployeeServiceImpl implements EmployeeService {
     //공고글에 신청하는(지원서작성) 기능(Application생성후 저장)
     // (username을 통해서, Employee객체를 얻고, 이걸 이용해 Application생성)
     @Override
-    public Application applyJobPost(Long jobPost_id, String username) throws UserNotFoundException {
+    public boolean applyJobPost(Long jobPost_id, String username) throws UserNotFoundException {
 
         // jobPost_id로 db에서 JobPost 객체 넘겨받기
         Optional<JobPost> jobPostOpt = jobPostRepository.findById(jobPost_id);
-        JobPost jobPost = jobPostOpt.orElseThrow(()-> new UserNotFoundException("JobPost not found"));
+        JobPost jobPost = jobPostOpt.orElseThrow(()-> new UserNotFoundException("User not found"));
 
         // username으로 db에서 Employee 객체 넘겨받기
-        Optional<Employee> employeeOpt = employeeRepository.findByUsername(username);
+        Optional<Employee> employeeOpt = Optional.ofNullable(employeeRepository.findByUsername(username));
         Employee employee = employeeOpt.orElseThrow(()-> new UserNotFoundException("User not found"));
 
         // Application 생성, 저장
         Application application = new Application(jobPost, employee);
-        return applicationRepository.save(application);
+        applicationRepository.save(application);
+
+        return true;
 
     }
 
@@ -83,14 +85,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Response_PostwithApplicationDto> getApplicationsByusername(String username)
     {
         // username이 작성한 지원서 갖고오기
-        List<Application> applications = applicationRepository.findByUsername(username);
+        List<Application> application = ApplicationRepository.findByUsername(username);
+        // ToPostwithApplicationDto(Optional<Application> application)
 
-        List<Response_PostwithApplicationDto> applicationDtos = new ArrayList<>();
-        for(Application application : applications)
-        {
-            applicationDtos.add(DtoConverter.ToPostwithApplicationDto(application));
-        }
-        return applicationDtos;
+        return List.of(DtoConverter.ToPostwithApplicationDto(application));
     }
 
 
@@ -99,15 +97,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<Response_PostwithApplicationDto> getApplicationsByusername_ACCEPT(String username)
     {
-        List<Application> applications = applicationRepository.findByUsernameAAndApplicationState(username, ApplicationState.ACCEPT);
+        List<Application> application = ApplicationRepository.findByUsername(username);
 
-        List<Response_PostwithApplicationDto> applicationDtos = new ArrayList<>();
-        for(Application application : applications)
-        {
-            applicationDtos.add(DtoConverter.ToPostwithApplicationDto(application));
-        }
-        return applicationDtos;
+        // 가져온 application 중에서 지원서의 상태가 Accept인 것만 필터링
+        List<Response_PostwithApplicationDto> application_accepted = application.stream()
+                .filter(application -> "ACCPETED".equals(application.getApplicationState()))
+                .collect(Collectors.toList());
 
+        return application_accepted;
     }
 
     //getApplicationsByusername와 같은 기능이지만 로직이 추가됨
@@ -116,26 +113,26 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Response_PostwithApplicationDto> getApplicationsByusername_RECRUITING(String username)
     {
         // username 가져오고
-        List<Application> applications = applicationRepository.findByUsername(username);
-
-
+        List<Application> application = ApplicationRepository.findByUsername(username);
         // 공고글이 recruiting인 것들 필터링
-        List<Response_PostwithApplicationDto> applicationDtos = new ArrayList<>();
-        for(Application application : applications)
-        {
-            if(application.getJobPost().getJobPostState().equals(JobPostState.RECRUITING))
-            {
-                applicationDtos.add(DtoConverter.ToPostwithApplicationDto(application));
-            }
-        }
-        return applicationDtos;
+        List<Response_PostwithApplicationDto> application_jobpost_recruiting = application.stream()
+                .filter(application -> "RECRUTING".equals(application.getJobPost().getJobPostState()))
+                .collect(Collectors.toList());
+
+        return List.of();
     }
 
     //지원서 삭제기능
     @Override
-    public boolean deleteApplication(Long application_id)
+    public boolean deleteApplication(Long application_id) throws ApplicationNotFoundException
     {
-        applicationRepository.deleteById(application_id);
+        // application_id를 받아서 db에서 삭제
+        Optional<Application> applicationOpt = applicationRepository.findById(application_id);
+        if(applicationOpt.isEmpty()){
+            // 예외처리
+            throw new ApplicationNotFoundException("Application not found");
+        }
+        applicationRepository.delete(applicationOpt.get());
         return true;
     }
 }

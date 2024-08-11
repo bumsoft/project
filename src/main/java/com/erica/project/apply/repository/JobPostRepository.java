@@ -16,5 +16,4 @@ public interface JobPostRepository extends JpaRepository<JobPost,Long> {
 
     // DB에서 가져와야지
     List<JobPost> findByLocationAndJobPostState(String location, JobPostState jobPostState);
-
 }
