@@ -58,7 +58,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     //공고글에 신청하는(지원서작성) 기능(Application생성후 저장)
     // (username을 통해서, Employee객체를 얻고, 이걸 이용해 Application생성)
     @Override
-    public boolean applyJobPost(Long jobPost_id, String username) throws UserNotFoundException {
+    public Application applyJobPost(Long jobPost_id, String username) throws UserNotFoundException {
 
         // jobPost_id로 db에서 JobPost 객체 넘겨받기
         Optional<JobPost> jobPostOpt = jobPostRepository.findById(jobPost_id);
@@ -72,7 +72,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         Application application = new Application(jobPost, employee);
         applicationRepository.save(application);
 
-        return true;
+        return application;
 
     }
 
@@ -85,9 +85,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     {
         // username이 작성한 지원서 갖고오기
         List<Application> application = ApplicationRepository.findByUsername(username);
-        // ToPostwithApplicationDto(Optional<Application> application)
 
-        return List.of(DtoConverter.ToPostwithApplicationDto(application));
+        // 지원서 리스트를 순회하면서 dto로 변환하고 리스트에 추가
+        List<Response_PostwithApplicationDto> applicationDtos = new ArrayList<>();
+        for (Application application1 : application){
+            applicationDtos.add(DtoConverter.ToPostwithApplicationDto(application1));
+        }
+
+        return applicationDtos;
     }
 
 
