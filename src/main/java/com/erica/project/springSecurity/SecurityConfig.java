@@ -1,5 +1,8 @@
 package com.erica.project.springSecurity;
 
+import com.erica.project.User.domain.UserRole;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +13,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import java.io.IOException;
 
 @RequiredArgsConstructor
 @EnableWebSecurity
@@ -22,19 +28,22 @@ public class SecurityConfig {
     {
         http
                 .authorizeHttpRequests((authorizeRequests)-> authorizeRequests
-                        .requestMatchers("link1").authenticated()
-                        .requestMatchers("link2").authenticated()
+                        .requestMatchers("employee/**").hasAnyAuthority(UserRole.ADMIN.getValue(),UserRole.EMPLOYEE.getValue())
+                        .requestMatchers("employer/**").hasAnyAuthority(UserRole.ADMIN.getValue(),UserRole.EMPLOYER.getValue())
 
                         .anyRequest().permitAll())
 
                 .formLogin((formLogin)->formLogin
                         .loginPage("/login")
-                        .defaultSuccessUrl("/")) //로그인시 url
+                        .successHandler(new CustomAuthenticationSuccessHandler()))
 
                 .logout((logout)->logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                         .logoutSuccessUrl("/")
                         .invalidateHttpSession(true)) //세션삭제
+
+                .exceptionHandling(exceptionHandling -> exceptionHandling
+                        .accessDeniedHandler(accessDeniedHandler()))
                 ;
 
         return http.build();
@@ -52,5 +61,16 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception
     {
         return authenticationConfiguration.getAuthenticationManager();
+    }
+
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler() {
+        return new AccessDeniedHandler() {
+            @Override
+            public void handle(HttpServletRequest request, HttpServletResponse response, org.springframework.security.access.AccessDeniedException accessDeniedException) throws IOException
+            {
+                response.sendRedirect(request.getContextPath() + "/accessDenied");
+            }
+        };
     }
 }
