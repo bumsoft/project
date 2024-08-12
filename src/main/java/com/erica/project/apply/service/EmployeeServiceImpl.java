@@ -1,12 +1,10 @@
 package com.erica.project.apply.service;
 
 import com.erica.project.User.domain.Employee;
-import com.erica.project.User.exception.ApplicationNotFoundException;
 import com.erica.project.User.exception.UserNotFoundException;
 import com.erica.project.User.repository.EmployeeRepository;
 import com.erica.project.User.repository.EmployerRepository;
 import com.erica.project.apply.domain.Application;
-import com.erica.project.apply.domain.ApplicationState;
 import com.erica.project.apply.domain.JobPost;
 import com.erica.project.apply.domain.JobPostState;
 import com.erica.project.apply.dto.DtoConverter;
@@ -64,11 +62,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         // jobPost_id로 db에서 JobPost 객체 넘겨받기
         Optional<JobPost> jobPostOpt = jobPostRepository.findById(jobPost_id);
-        JobPost jobPost = jobPostOpt.orElseThrow(()-> new UserNotFoundException("JobPost not found"));
+        JobPost jobPost = jobPostOpt.orElseThrow(()-> new UserNotFoundException("User not found"));
 
         // username으로 db에서 Employee 객체 넘겨받기
         Optional<Employee> employeeOpt = employeeRepository.findByUsername(username);
-        Employee employee = employeeOpt.orElseThrow(()-> new UserNotFoundException("User(Employee) not found"));
+        Employee employee = employeeOpt.orElseThrow(()-> new UserNotFoundException("User not found"));
 
         // Application 생성, 저장
         Application application = new Application(jobPost, employee);
@@ -86,13 +84,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Response_PostwithApplicationDto> getApplicationsByusername(String username)
     {
         // username이 작성한 지원서 갖고오기
-        List<Application> applications = applicationRepository.findByEmployeeUsername(username);
+        List<Application> application = ApplicationRepository.findByUsername(username);
 
         // 지원서 리스트를 순회하면서 dto로 변환하고 리스트에 추가
         List<Response_PostwithApplicationDto> applicationDtos = new ArrayList<>();
-        for (Application application : applications){
-            applicationDtos.add(DtoConverter.ToPostwithApplicationDto(application));
+        for (Application application1 : application){
+            applicationDtos.add(DtoConverter.ToPostwithApplicationDto(application1));
         }
+
         return applicationDtos;
     }
 
@@ -103,18 +102,18 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Response_PostwithApplicationDto> getApplicationsByusername_ACCEPT(String username)
     {
         // username으로 지원서 찾기
-        List<Application> applications = applicationRepository.findByEmployeeUsernameAndApplicationState(username, ApplicationState.ACCEPT);
+        List<Application> application = ApplicationRepository.findByUsername(username);
 
         // 결과를 담을 list 생성
-        List<Response_PostwithApplicationDto> postwithApplicationDtos = new ArrayList<>();
+        List<Response_PostwithApplicationDto> application_accepted = new ArrayList<>();
 
         // 순회하면서 지원서의 상태가 Accept인 것만 필터링 후 리스트에 추가
-        for (Application application : applications)
-        {
-            postwithApplicationDtos.add(DtoConverter.ToPostwithApplicationDto(application));
-
+        for (Application application1 : application){
+            if("ACCEPED".equals(application1.getApplicationState())){
+                application_accepted.add(DtoConverter.ToPostwithApplicationDto(application1));
+            }
         }
-        return postwithApplicationDtos;
+        return application_accepted;
     }
 
     //getApplicationsByusername와 같은 기능이지만 로직이 추가됨
@@ -122,31 +121,31 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<Response_PostwithApplicationDto> getApplicationsByusername_RECRUITING(String username)
     {
-        List<Application> applications = applicationRepository.findByEmployeeUsernameAndJobPostJobPostState(username,JobPostState.RECRUITING);
+        // username 가져오고
+        List<Application> application = ApplicationRepository.findByUsername(username);
 
-        List<Response_PostwithApplicationDto> postwithApplicationDtos = new ArrayList<>();
+        // 저장할 list 만들어주고
+        List<Response_PostwithApplicationDto> application_recruiting = new ArrayList<>();
 
-        for (Application application : applications)
-        {
-                postwithApplicationDtos.add(DtoConverter.ToPostwithApplicationDto(application));
+        // 리스트 순회하면서 공고글 상태가 recruiting인 것만 필터링 해서 리스트에 추가
+        for (Application application1 : application){
+            if("RECRUITING".equals(application1.getJobPost().getJobPostState())){
+                application_recruiting.add(DtoConverter.ToPostwithApplicationDto(application1));
+            }
         }
-        return postwithApplicationDtos;
+        return application_recruiting;
     }
 
     //지원서 삭제기능
     @Override
-    public boolean deleteApplication(Long application_id) throws ApplicationNotFoundException
+    public boolean deleteApplication(Long application_id)
     {
+        // application_id를 받아서 db에서 삭제
         Optional<Application> applicationOpt = applicationRepository.findById(application_id);
-
-        applicationRepository.delete(applicationOpt.orElseThrow(()->new ApplicationNotFoundException("Application not found")));
-
+        if(applicationOpt.isEmpty()){
+            return false;
+        }
+        applicationRepository.delete(applicationOpt.get());
         return true;
-    }
-
-    //테스트 작성용
-    public Application getApplication(Long application_id) throws ApplicationNotFoundException
-    {
-        return applicationRepository.findById(application_id).orElseThrow(()->new ApplicationNotFoundException("Application not found"));
     }
 }
