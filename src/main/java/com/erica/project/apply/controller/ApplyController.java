@@ -80,6 +80,7 @@ public class ApplyController {
         List<Response_JobPostDto> list = employeeService.getJobPostsByLocation(location.getLocation());
         model.addAttribute("jobPosts", list);
         model.addAttribute("search", new Request_Location());
+        model.addAttribute("location",location.getLocation());
 
 
         return "Apply/employeeMainPage";

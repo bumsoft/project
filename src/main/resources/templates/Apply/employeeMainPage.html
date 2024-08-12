@@ -1,11 +1,155 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>알바 메인페이지</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1> 알바 메인페이지</h1>-->
+
+<!--<form th:action="@{/employee/search}" th:object="${search}" method="post">-->
+<!--    <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>-->
+
+<!--    <label for="Location">지역:</label>-->
+<!--    <input type="text" id="Location" th:field="*{location}" required/>-->
+
+<!--    <button type="submit">검색</button>-->
+<!--</form>-->
+
+<!--&lt;!&ndash; 검색 결과를 보여주는 부분 &ndash;&gt;-->
+<!--<div>-->
+<!--    <h2>모든 공고</h2>-->
+<!--    <div th:if="${alljobPosts}">-->
+<!--        <ul>-->
+<!--            <li th:each="jobPost : ${alljobPosts}" th:text="${jobPost.employerCompname}">dd</li>-->
+<!--        </ul>-->
+<!--    </div>-->
+<!--</div>-->
+
+
+<!--<div th:if="${location}">-->
+<!--    <h2 th:text="'검색결과:'+ ${location}">검색 결과: ${location}"</h2>-->
+<!--    <div th:if="${jobPosts}">-->
+<!--        <ul>-->
+<!--            <li th:each="jobPost : ${jobPosts}" th:text="${jobPost.employerCompname}">ss</li>-->
+<!--        </ul>-->
+<!--    </div>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>알바 메인페이지</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-top: 20px;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            margin-right: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            flex-grow: 1;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-left: 15px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .results-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 30px;
+        }
+
+        .results-container.with-location {
+            justify-content: space-between;
+        }
+
+        .results-section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 48%;
+        }
+
+        .results-section.full-width {
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .results-section h2 {
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
-<h1> 알바 메인페이지</h1>
+<h1>알바 메인페이지</h1>
 
 <form th:action="@{/employee/search}" th:object="${search}" method="post">
     <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
@@ -17,22 +161,24 @@
 </form>
 
 <!-- 검색 결과를 보여주는 부분 -->
-<div>
-    <h2>모든 공고</h2>
-    <div th:if="${alljobPosts}">
-        <ul>
-            <li th:each="jobPost : ${alljobPosts}" th:text="${jobPost.employerCompname}">dd</li>
-        </ul>
+<div class="results-container" th:classappend="${location} ? 'with-location' : ''">
+    <div class="results-section" th:classappend="${location} ? '' : 'full-width'">
+        <h2>모든 공고</h2>
+        <div th:if="${alljobPosts}">
+            <ul>
+                <li th:each="jobPost : ${alljobPosts}" th:text="${jobPost.employerCompname}">dd</li>
+            </ul>
+        </div>
     </div>
-</div>
 
-
-<div>
-    <h2>검색 결과</h2>
-    <div th:if="${jobPosts}">
-        <ul>
-            <li th:each="jobPost : ${jobPosts}" th:text="${jobPost.employerCompname}">ss</li>
-        </ul>
+    <div class="results-section" th:if="${location}">
+        <h2 th:text="'검색결과: ' + ${location}">검색 결과: ${location}</h2>
+        <div th:if="${jobPosts}">
+            <h3 th:if="${jobPosts.size()==0}">공고가 없습니다.</h3>
+            <ul>
+                <li th:each="jobPost : ${jobPosts}" th:text="${jobPost.employerCompname}">ss</li>
+            </ul>
+        </div>
     </div>
 </div>
 </body>

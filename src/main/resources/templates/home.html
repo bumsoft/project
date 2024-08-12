@@ -3,13 +3,22 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>오늘도 편의점</title>
+    <title>니편내편</title>
     <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
+
+
+        @font-face {
+            font-family: 'Jalnan';
+            src: url('https://cdn.jsdelivr.net/gh/wizfile/font/Jalnan.eot');
+            src: url('https://cdn.jsdelivr.net/gh/wizfile/font/Jalnan.woff') format('woff');
+            font-style: normal;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Jalnan', sans-serif;;
             background-color: #f8f9fa;
             margin: 0;
             padding: 0;
@@ -87,12 +96,16 @@
 <div class="wrapper">
     <div class="container">
         <div>
-            <h1 style="font-family: 궁서">오늘도 편의점</h1>
+            <h1>니편내편</h1>
+            <div>
             <a class="a" sec:authorize="isAnonymous()" th:href="@{/login}" >로그인</a>
             <a class="a" sec:authorize="isAuthenticated()" th:href="@{/logout}" >로그아웃</a>
+            </div>
             <p>
-                <a  style="font-family: 궁서" href="/register/employer" class="animate__animated animate__fadeInTopRight">사장</a>
-                <a  style="font-family: 궁서" href="/register/employee" class="animate__animated animate__fadeInTopLeft">아르바이트생</a>
+                <a href="/register/employer" class="animate__animated animate__fadeInTopRight">사장님 시작하기</a>
+                <a href="/employer" class="animate__animated animate__fadeInTopRight">사장님 페이지</a>
+                <a href="/register/employee" class="animate__animated animate__fadeInTopLeft">알바생 시작하기</a>
+                <a href="/employee" class="animate__animated animate__fadeInTopLeft">알바생 페이지</a>
             </p>
         </div>
     </div>
