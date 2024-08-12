@@ -32,6 +32,19 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final EmployerRepository employerRepository;
     private final EmployeeRepository employeeRepository;
 
+
+    @Override
+    public List<Response_JobPostDto> getAllJobPosts()
+    {
+        List<JobPost> jobPosts = jobPostRepository.findAll();
+        List<Response_JobPostDto> jobPostDtos = new ArrayList<>();
+        for (JobPost jobPost : jobPosts)
+        {
+            jobPostDtos.add(DtoConverter.ToJobPostDto(jobPost));
+        }
+        return jobPostDtos;
+    }
+
     // 지역(String)을 받아서, 그 지역의 공고글 리스트(dto)를 반환하는 메서드
     // 추가로직 :JobPost의 state가 RECRUITING인 것만 반환
     @Override

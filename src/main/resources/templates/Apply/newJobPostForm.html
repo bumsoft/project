@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>공고글 작성 폼</title>
+</head>
+<body>
+<h1>공고글 작성 폼</h1>
+
+<form th:action="@{/employer/newJobPost}" th:object="${form}" method="post">
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+    <div th:if="${param.error}">
+        오륭ㅇ
+    </div>
+
+    <label for="storeName">편의점 이름:</label>
+    <input type="text" id="storeName" th:field="*{employerCompname}" required/><br>
+
+    <label for="salaryPerTime">시급:</label>
+    <input type="number" id="salaryPerTime" th:field="*{salaryPerTime}" required><br>
+
+    <label for="location">지역:</label>
+    <input type="text" id="location" th:field="*{location}" required><br>
+
+    <label for="workDate">근무일:</label>
+    <input type="date" id="workDate" th:field="*{workDate}" required><br>
+
+    <label for="workTimeFrom">시작 시간:</label>
+    <input type="time" id="workTimeFrom" th:field="*{workTimeFrom}" required><br>
+
+    <label for="workTimeTo">종료 시간:</label>
+    <input type="time" id="workTimeTo" th:field="*{workTimeTo}" required><br>
+
+    <input type="submit" value="제출">
+</form>
+</body>
+</html>

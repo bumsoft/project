@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>알바 메인페이지</title>
+</head>
+<body>
+<h1> 알바 메인페이지</h1>
+
+<form th:action="@{/employee/search}" th:object="${search}" method="post">
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+
+    <label for="Location">지역:</label>
+    <input type="text" id="Location" th:field="*{location}" required/>
+
+    <button type="submit">검색</button>
+</form>
+
+<!-- 검색 결과를 보여주는 부분 -->
+<div>
+    <h2>모든 공고</h2>
+    <div th:if="${alljobPosts}">
+        <ul>
+            <li th:each="jobPost : ${alljobPosts}" th:text="${jobPost.employerCompname}">dd</li>
+        </ul>
+    </div>
+</div>
+
+
+<div>
+    <h2>검색 결과</h2>
+    <div th:if="${jobPosts}">
+        <ul>
+            <li th:each="jobPost : ${jobPosts}" th:text="${jobPost.employerCompname}">ss</li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

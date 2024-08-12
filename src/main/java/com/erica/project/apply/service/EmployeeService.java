@@ -12,6 +12,9 @@ import java.util.List;
 //Dto변환은 모두 DtoConverter에 만들어놨으니, DtoConverter이용하여 변환하면 됨!!
 public interface EmployeeService {
 
+    List<Response_JobPostDto> getAllJobPosts();
+
+
     //지역(String)을 받아서, 그 지역의 공고글 리스트(dto)를 반환하는 메서드
     // 추가로직 :JobPost의 state가 RECRUITING인 것만 반환
     List<Response_JobPostDto> getJobPostsByLocation(String location);

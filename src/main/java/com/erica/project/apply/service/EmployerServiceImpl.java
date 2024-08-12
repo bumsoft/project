@@ -1,6 +1,8 @@
 package com.erica.project.apply.service;
 
 import com.erica.project.User.repository.EmployeeRepository;
+import com.erica.project.User.repository.EmployerRepository;
+import com.erica.project.apply.domain.JobPost;
 import com.erica.project.apply.dto.common.Response_JobPostDto;
 import com.erica.project.apply.dto.employer.Request_JobPostDto;
 import com.erica.project.apply.dto.employer.Response_ApplicationDto;
@@ -21,12 +23,17 @@ public class EmployerServiceImpl implements EmployerService {
     private final EmployeeRepository employeeRepository;
     private final JobPostRepository jobPostRepository;
     private final ApplicationRepository applicationRepository;
+    private final EmployerRepository employerRepository;
 
     // 공고 등록
     @Override
     public boolean saveJobPost(Request_JobPostDto job_postingDto)
     {
-        return false;
+        JobPost jobPost = new JobPost(employerRepository.findByUsername(job_postingDto.getEmployer_id()),
+                job_postingDto.getEmployerCompname(), job_postingDto.getLocation(), job_postingDto.getSalaryPerTime(),
+                job_postingDto.getWorkDate(), job_postingDto.getWorkTimeFrom(), job_postingDto.getWorkTimeTo());
+        jobPostRepository.save(jobPost);
+        return true;
     }
 
     // 작성한 공고글 리스트 반환
