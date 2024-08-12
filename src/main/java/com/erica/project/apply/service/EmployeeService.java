@@ -1,5 +1,6 @@
 package com.erica.project.apply.service;
 
+import com.erica.project.User.exception.ApplicationNotFoundException;
 import com.erica.project.User.exception.UserNotFoundException;
 import com.erica.project.apply.domain.Application;
 import com.erica.project.apply.domain.JobPost;
@@ -34,7 +35,7 @@ public interface EmployeeService {
     List<Response_PostwithApplicationDto> getApplicationsByusername_RECRUITING(String username);
 
     //지원서 삭제기능
-    boolean deleteApplication(Long application_id);
+    boolean deleteApplication(Long application_id) throws ApplicationNotFoundException;
 
 
 }
