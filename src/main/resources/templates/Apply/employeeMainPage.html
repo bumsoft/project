@@ -165,6 +165,7 @@
     <div class="results-section" th:classappend="${location} ? '' : 'full-width'">
         <h2>모든 공고</h2>
         <div th:if="${alljobPosts}">
+            <h3 th:if="${alljobPosts.size()==0}">공고가 없습니다.</h3>
             <ul>
                 <li th:each="jobPost : ${alljobPosts}" th:text="${jobPost.employerCompname}">dd</li>
             </ul>
