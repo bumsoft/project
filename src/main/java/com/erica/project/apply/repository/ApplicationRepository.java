@@ -9,10 +9,10 @@ import java.util.List;
 
 public interface ApplicationRepository extends JpaRepository<Application, Long> {
 
-    List<Application> findByUsername(String username);
+    List<Application> findByEmployeeUsername(String username);
 
-    List<Application> findByUsernameAndApplicationState(String username, ApplicationState state);
+    List<Application> findByEmployeeUsernameAndApplicationState(String username, ApplicationState state);
 
-    List<Application> findByUsernameAndJobPostjobPostState(String username, JobPostState state);
+    List<Application> findByEmployeeUsernameAndJobPostJobPostState(String username, JobPostState state);
 
 }

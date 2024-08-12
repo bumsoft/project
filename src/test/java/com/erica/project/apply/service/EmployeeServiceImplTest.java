@@ -6,12 +6,15 @@ import com.erica.project.User.domain.Employer;
 import com.erica.project.User.domain.UserRole;
 import com.erica.project.User.dto.EmployeeRegisterDto;
 import com.erica.project.User.dto.EmployerRegisterDto;
+import com.erica.project.User.exception.ApplicationNotFoundException;
 import com.erica.project.User.exception.UserAlreadyExistException;
+import com.erica.project.User.exception.UserNotFoundException;
 import com.erica.project.User.repository.EmployeeRepository;
 import com.erica.project.User.repository.EmployerRepository;
 import com.erica.project.User.repository.UserRepository;
 import com.erica.project.User.service.UserRegisterService;
 import com.erica.project.User.service.UserRegisterServiceImpl;
+import com.erica.project.apply.domain.Application;
 import com.erica.project.apply.domain.JobPost;
 import com.erica.project.apply.domain.JobPostState;
 import com.erica.project.apply.dto.common.Response_JobPostDto;
@@ -19,6 +22,7 @@ import com.erica.project.apply.repository.ApplicationRepository;
 import com.erica.project.apply.repository.JobPostRepository;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -52,6 +56,8 @@ class EmployeeServiceImplTest {
     JobPost jobPost3;
     @Autowired
     private JobPostRepository jobPostRepository;
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
     @BeforeEach
     void setUp() throws UserAlreadyExistException
@@ -121,8 +127,16 @@ class EmployeeServiceImplTest {
             System.out.println("\n");
 
         }
+    }
 
+    @Test
+    void 지원하기() throws UserNotFoundException, ApplicationNotFoundException
+    {
+        Application application = employeeService.applyJobPost(jobPost1.getJobPost_id(), employee.getUsername());
 
+        Application application_get = employeeService.getApplication(application.getApplication_id());
+
+        org.assertj.core.api.Assertions.assertThat(application_get).isEqualTo(application);
     }
 
 }

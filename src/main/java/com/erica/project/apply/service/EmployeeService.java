@@ -3,7 +3,6 @@ package com.erica.project.apply.service;
 import com.erica.project.User.exception.ApplicationNotFoundException;
 import com.erica.project.User.exception.UserNotFoundException;
 import com.erica.project.apply.domain.Application;
-import com.erica.project.apply.domain.JobPost;
 import com.erica.project.apply.dto.employee.Response_PostwithApplicationDto;
 import com.erica.project.apply.dto.common.Response_JobPostDto;
 
@@ -36,6 +35,10 @@ public interface EmployeeService {
 
     //지원서 삭제기능
     boolean deleteApplication(Long application_id) throws ApplicationNotFoundException;
+
+    //테스트 작성용
+    Application getApplication(Long application_id) throws ApplicationNotFoundException;
+
 
 
 }

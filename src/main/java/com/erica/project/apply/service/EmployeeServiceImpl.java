@@ -86,7 +86,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Response_PostwithApplicationDto> getApplicationsByusername(String username)
     {
         // username이 작성한 지원서 갖고오기
-        List<Application> applications = applicationRepository.findByUsername(username);
+        List<Application> applications = applicationRepository.findByEmployeeUsername(username);
 
         // 지원서 리스트를 순회하면서 dto로 변환하고 리스트에 추가
         List<Response_PostwithApplicationDto> applicationDtos = new ArrayList<>();
@@ -103,7 +103,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Response_PostwithApplicationDto> getApplicationsByusername_ACCEPT(String username)
     {
         // username으로 지원서 찾기
-        List<Application> applications = applicationRepository.findByUsernameAndApplicationState(username, ApplicationState.ACCEPT);
+        List<Application> applications = applicationRepository.findByEmployeeUsernameAndApplicationState(username, ApplicationState.ACCEPT);
 
         // 결과를 담을 list 생성
         List<Response_PostwithApplicationDto> postwithApplicationDtos = new ArrayList<>();
@@ -122,7 +122,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<Response_PostwithApplicationDto> getApplicationsByusername_RECRUITING(String username)
     {
-        List<Application> applications = applicationRepository.findByUsernameAndJobPostjobPostState(username,JobPostState.RECRUITING);
+        List<Application> applications = applicationRepository.findByEmployeeUsernameAndJobPostJobPostState(username,JobPostState.RECRUITING);
 
         List<Response_PostwithApplicationDto> postwithApplicationDtos = new ArrayList<>();
 
@@ -142,5 +142,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         applicationRepository.delete(applicationOpt.orElseThrow(()->new ApplicationNotFoundException("Application not found")));
 
         return true;
+    }
+
+    //테스트 작성용
+    public Application getApplication(Long application_id) throws ApplicationNotFoundException
+    {
+        return applicationRepository.findById(application_id).orElseThrow(()->new ApplicationNotFoundException("Application not found"));
     }
 }
