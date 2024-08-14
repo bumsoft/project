@@ -1,8 +1,9 @@
 package com.erica.project.apply.service;
 
 import com.erica.project.User.domain.Employee;
-import com.erica.project.User.exception.ApplicationNotFoundException;
-import com.erica.project.User.exception.UserNotFoundException;
+import com.erica.project.exception.AlreadyApplyException;
+import com.erica.project.exception.ApplicationNotFoundException;
+import com.erica.project.exception.UserNotFoundException;
 import com.erica.project.User.repository.EmployeeRepository;
 import com.erica.project.User.repository.EmployerRepository;
 import com.erica.project.apply.domain.Application;
@@ -42,6 +43,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         List<Response_JobPostDto> jobPostDtos = new ArrayList<>();
         for (JobPost jobPost : jobPosts)
         {
+
             jobPostDtos.add(DtoConverter.ToJobPostDto(jobPost));
         }
         return jobPostDtos;
@@ -50,13 +52,16 @@ public class EmployeeServiceImpl implements EmployeeService {
     // 지역(String)을 받아서, 그 지역의 공고글 리스트(dto)를 반환하는 메서드
     // 추가로직 :JobPost의 state가 RECRUITING인 것만 반환
     @Override
-    public List<Response_JobPostDto> getJobPostsByLocation(String location)
+    public List<Response_JobPostDto> getJobPostsByLocation(String location, String username)
     {
         // db에서 location, state를 받아서 그 location을 포함하는 JobPost를 list로 반환(repository 활용)
         List<JobPost> jobPosts = jobPostRepository.findByLocationAndJobPostState(location, JobPostState.RECRUITING);
         List<Response_JobPostDto> jobPostDtos = new ArrayList<>();
         for (JobPost jobPost : jobPosts)
         {
+            //이미 신청한 글이면 추가X
+            if(applicationRepository.existsByJobPostAndEmployeeUsername(jobPost, username))
+                continue;
             jobPostDtos.add(DtoConverter.ToJobPostDto(jobPost));
         }
         return jobPostDtos;
@@ -73,11 +78,18 @@ public class EmployeeServiceImpl implements EmployeeService {
     //공고글에 신청하는(지원서작성) 기능(Application생성후 저장)
     // (username을 통해서, Employee객체를 얻고, 이걸 이용해 Application생성)
     @Override
-    public Application applyJobPost(Long jobPost_id, String username) throws UserNotFoundException {
-
+    public Application applyJobPost(Long jobPost_id, String username) throws UserNotFoundException, AlreadyApplyException
+    {
+        System.out.println("start");
         // jobPost_id로 db에서 JobPost 객체 넘겨받기
         Optional<JobPost> jobPostOpt = jobPostRepository.findById(jobPost_id);
         JobPost jobPost = jobPostOpt.orElseThrow(()-> new UserNotFoundException("JobPost not found"));
+
+        //이미 지원한 경우
+        if(applicationRepository.existsByJobPostAndEmployeeUsername(jobPost, username))
+        {
+            throw new AlreadyApplyException("이미 지원한 공고글입니다.");
+        }
 
         // username으로 db에서 Employee 객체 넘겨받기
         Optional<Employee> employeeOpt = employeeRepository.findByUsername(username);
@@ -85,6 +97,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         // Application 생성, 저장
         Application application = new Application(jobPost, employee);
+        System.out.println("save now");
         applicationRepository.save(application);
 
         return application;

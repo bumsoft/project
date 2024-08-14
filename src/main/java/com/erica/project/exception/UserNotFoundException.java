@@ -1,4 +1,4 @@
-package com.erica.project.User.exception;
+package com.erica.project.exception;
 
 public class UserNotFoundException extends Exception {
     public UserNotFoundException(String message) {

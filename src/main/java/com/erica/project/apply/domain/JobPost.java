@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.sql.Date;
 import java.sql.Time;
@@ -13,6 +14,7 @@ import java.util.List;
 @Entity
 @Getter
 @RequiredArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class JobPost {
 
     /**

@@ -45,6 +45,8 @@ public class DtoConverter {
         dto.setApplyDate(application.getApplyDate());
         dto.setApplicationState(application.getApplicationState());
 
+        dto.setApplication_id(application.getApplication_id());
+
         return dto;
     }
 

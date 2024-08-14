@@ -6,38 +6,24 @@ import com.erica.project.User.domain.Employer;
 import com.erica.project.User.domain.UserRole;
 import com.erica.project.User.dto.EmployeeRegisterDto;
 import com.erica.project.User.dto.EmployerRegisterDto;
-import com.erica.project.User.exception.ApplicationNotFoundException;
-import com.erica.project.User.exception.UserAlreadyExistException;
-import com.erica.project.User.exception.UserNotFoundException;
+import com.erica.project.exception.ApplicationNotFoundException;
+import com.erica.project.exception.UserAlreadyExistException;
+import com.erica.project.exception.UserNotFoundException;
 import com.erica.project.User.repository.EmployeeRepository;
-import com.erica.project.User.repository.EmployerRepository;
-import com.erica.project.User.repository.UserRepository;
 import com.erica.project.User.service.UserRegisterService;
-import com.erica.project.User.service.UserRegisterServiceImpl;
 import com.erica.project.apply.domain.Application;
 import com.erica.project.apply.domain.JobPost;
-import com.erica.project.apply.domain.JobPostState;
 import com.erica.project.apply.dto.common.Response_JobPostDto;
-import com.erica.project.apply.repository.ApplicationRepository;
 import com.erica.project.apply.repository.JobPostRepository;
 import jakarta.transaction.Transactional;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @Transactional

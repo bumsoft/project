@@ -2,7 +2,7 @@ package com.erica.project.User.controller;
 
 import com.erica.project.User.dto.EmployeeRegisterDto;
 import com.erica.project.User.dto.EmployerRegisterDto;
-import com.erica.project.User.exception.UserAlreadyExistException;
+import com.erica.project.exception.UserAlreadyExistException;
 import com.erica.project.User.service.UserDeleteService;
 import com.erica.project.User.service.UserRegisterService;
 import jakarta.validation.Valid;

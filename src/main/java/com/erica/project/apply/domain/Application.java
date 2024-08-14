@@ -5,10 +5,12 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Getter
 @RequiredArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class Application {
 
     public Application(JobPost jobPost, Employee employee)

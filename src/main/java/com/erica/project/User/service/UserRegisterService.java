@@ -2,11 +2,9 @@ package com.erica.project.User.service;
 
 import com.erica.project.User.domain.Employee;
 import com.erica.project.User.domain.Employer;
-import com.erica.project.User.domain.User;
 import com.erica.project.User.dto.EmployeeRegisterDto;
 import com.erica.project.User.dto.EmployerRegisterDto;
-import com.erica.project.User.dto.UserRegisterDto;
-import com.erica.project.User.exception.UserAlreadyExistException;
+import com.erica.project.exception.UserAlreadyExistException;
 
 public interface UserRegisterService {
 

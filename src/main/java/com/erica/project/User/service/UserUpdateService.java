@@ -2,10 +2,9 @@ package com.erica.project.User.service;
 
 import com.erica.project.User.domain.User;
 import com.erica.project.User.dto.UserDbDto;
-import com.erica.project.User.exception.UserNotFoundException;
+import com.erica.project.exception.UserNotFoundException;
 import com.erica.project.User.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
 

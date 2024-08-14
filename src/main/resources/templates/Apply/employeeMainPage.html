@@ -197,6 +197,8 @@
                             <div th:text="'시급: ' + ${jobPost.salaryPerTime}+'원'"> </div>
                             <div th:text="'근무일: '+ ${jobPost.workDate}"> </div>
                             <div th:text="${jobPost.workTimeFrom} + '~' + ${jobPost.workTimeTo}"> </div>
+
+                            <a th:href="@{/employee/apply/{id}(id=${jobPost.jobPost_id})}">신청</a>
                         </li>
                     </ul>
                 </div>
@@ -213,10 +215,34 @@
                             <div th:text="'시급: ' + ${jobPost.salaryPerTime}"> </div>
                             <div th:text="'근무일: '+ ${jobPost.workDate}"> </div>
                             <div th:text="${jobPost.workTimeFrom} + '~' + ${jobPost.workTimeTo}"> </div>
+                            <a th:href="@{/employee/apply/{id}(id=${jobPost.jobPost_id})}">신청</a>
+
                         </li>
                     </ul>
                 </div>
             </div>
+
+            <!-- 신청한 공고글 리스트보기 -->
+            <div class="results-section" >
+                <h2>신청한 공고</h2>
+                <div th:if="${applyJobPosts}">
+                    <h3 th:if="${applyJobPosts.size()==0}">공고가 없습니다.</h3>
+                    <ul>
+                        <li th:each="AP : ${applyJobPosts}">
+                            <div th:text="'상태:' + ${AP.applicationState}"></div>
+                            <div th:text="'지원한 날짜:' + ${AP.applyDate}"></div>
+                            <div th:text="'편의점이름: '+ ${AP.employerCompname}"> </div>
+                            <div th:text="'지역: '+ ${AP.location}"> </div>
+                            <div th:text="'시급: ' + ${AP.salaryPerTime}"> </div>
+                            <div th:text="'근무일: '+ ${AP.workDate}"> </div>
+                            <div th:text="${AP.workTimeFrom} + '~' + ${AP.workTimeTo}"> </div>
+                            <a th:href="@{/employee/apply/cancel/{id}(id=${AP.application_id})}">신청 취소</a>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
