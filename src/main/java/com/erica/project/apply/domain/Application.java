@@ -38,4 +38,14 @@ public class Application {
     @Enumerated(EnumType.STRING)
     private ApplicationState applicationState;
 
+    // 상태를 변경하는 메서드 추가
+    public void accept() {
+        if (this.applicationState == ApplicationState.WAITING) {
+            this.applicationState = ApplicationState.ACCEPT;
+        } else {
+            throw new IllegalStateException("Application is already accepted");
+        }
+    }
+
+
 }

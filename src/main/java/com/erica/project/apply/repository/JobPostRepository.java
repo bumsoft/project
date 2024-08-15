@@ -1,5 +1,6 @@
 package com.erica.project.apply.repository;
 
+import com.erica.project.User.domain.Employer;
 import com.erica.project.apply.domain.Application;
 import com.erica.project.apply.domain.JobPost;
 import com.erica.project.apply.domain.JobPostState;
@@ -13,4 +14,6 @@ import java.util.Optional;
 public interface JobPostRepository extends JpaRepository<JobPost,Long> {
 
     List<JobPost> findByLocationAndJobPostState(String location, JobPostState jobPostState);
+    List<JobPost> findByEmployer(Employer employer);
+    List<JobPost> findByEmployerAndJobPostState(Employer employer, JobPostState jobPostState);
 }

@@ -50,7 +50,7 @@ public class DtoConverter {
         return dto;
     }
 
-    static Response_ApplicationDto ToApplicationDto(Application application)
+    public static Response_ApplicationDto ToApplicationDto(Application application)
     {
         Response_ApplicationDto dto = new Response_ApplicationDto();
         dto.setName(application.getEmployee().getName());

@@ -75,4 +75,15 @@ public class JobPost {
     @Enumerated(EnumType.STRING)
     private JobPostState jobPostState;
 
+    // 상태를 변경하는 메서드 추가
+    public void completeRecruitment() {
+        if (this.jobPostState == JobPostState.RECRUITING) {
+            this.jobPostState = JobPostState.COMPLETED;
+        } else {
+            throw new IllegalStateException("JobPost is not in a recruiting state");
+        }
+    }
+
+
+
 }
