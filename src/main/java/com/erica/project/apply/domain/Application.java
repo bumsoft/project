@@ -26,6 +26,7 @@ public class Application {
 
     //공고글 외래키
     @ManyToOne
+    @JoinColumn(name="jobPostId")
     private JobPost jobPost;
 
     //지원자 외래키

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>사장님 메인페이지</title>
+    <title>지원자 현황</title>
     <style>
         @font-face {
             font-family: 'Jalnan';
@@ -166,7 +166,7 @@
 <body>
 <div class="wrapper">
     <div class="container">
-        <h1>사장 메인페이지</h1>
+        <h1>지원자 현황</h1>
 
         <div class="menu-buttons">
             <button type="button">홈</button>
@@ -174,68 +174,37 @@
             <button type="button">지원현황</button>
             <button type="button">마이페이지</button>
         </div>
-        <a href="employer/newJobPost">공고글 작성</a>
 
         <div class="results-container">
             <div class="results-section">
-                <h2>작성한 모든 공고</h2>
-                <div th:if="${alljobPosts}">
-                    <h3 th:if="${alljobPosts.size()==0}">공고가 없습니다.</h3>
+                <h2>지원자 목록</h2>
+                <div th:if="${allapplications}">
+                    <h3 th:if="${allapplications.size()==0}">지원자가 없습니다.</h3>
                     <ul>
-                        <li th:each="AP : ${alljobPosts}">
-                            <div th:text="'상태:' + ${AP.jobPostState}"></div>
-                            <div th:text="'작성일: '+${AP.postDate}"></div>
-                            <div th:text="'편의점이름: '+ ${AP.employerCompname}"> </div>
-                            <div th:text="'지역: '+ ${AP.location}"> </div>
-                            <div th:text="'시급: ' + ${AP.salaryPerTime}+'원'"> </div>
-                            <div th:text="'근무일: '+ ${AP.workDate}"> </div>
-                            <div th:text="${AP.workTimeFrom} + '~' + ${AP.workTimeTo}"> </div>
+                        <li th:each="ap : ${allapplications}">
+                            <div th:text="'상태:' + ${ap.applicationState}"></div>
+                            <div th:text="'지원날짜: '+${ap.applyDate}"></div>
+                            <div th:text="'이름: '+ ${ap.name}"> </div>
+                            <div th:text="'경력: '+ ${ap.employeeCareer}"> </div>
+                            <div th:text="'숙련도: '+ ${ap.employeeLevel}"> </div>
 
-                            <a th:href="@{/employer/jobPost/details/{id}(id=${AP.jobPost_id})}">지원자현황</a>
-                            <a th:href="@{/employer/delete/{id}(id=${AP.jobPost_id})}">공고삭제</a>
+                            <a th:href="@{/employer/jobPost/details/{jobPostId}/accept/{id2}(jobPostId=${jobPostId},id2=${ap.application_id})}">승인하기</a>
                         </li>
                     </ul>
                 </div>
             </div>
 
             <div class="results-section" >
-                <h2>모집중</h2>
-                <div th:if="${recruitingjobPosts}">
-                    <h3 th:if="${recruitingjobPosts.size()==0}">모집중인 공고가 없습니다.</h3>
+                <h2>승인된 지원자</h2>
+                <div th:if="${acceptedApplications}">
+                    <h3 th:if="${acceptedApplications.size()==0}">원하는 지원자를 승인해주세요!</h3>
                     <ul>
-                        <li th:each="RP : ${recruitingjobPosts}">
-                            <div th:text="'상태:' + ${RP.jobPostState}"></div>
-                            <div th:text="'작성일: '+${RP.postDate}"></div>
-                            <div th:text="'편의점이름: '+ ${RP.employerCompname}"> </div>
-                            <div th:text="'지역: '+ ${RP.location}"> </div>
-                            <div th:text="'시급: ' + ${RP.salaryPerTime}"> </div>
-                            <div th:text="'근무일: '+ ${RP.workDate}"> </div>
-                            <div th:text="${RP.workTimeFrom} + '~' + ${RP.workTimeTo}"> </div>
-
-                            <a th:href="@{/employer/jobPost/details/{id}(id=${RP.jobPost_id})}">지원자현황</a>
-                            <a th:href="@{/employer/delete/{id}(id=${RP.jobPost_id})}">공고삭제</a>
-
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="results-section" >
-                <h2>모집완료</h2>
-                <div th:if="${completedjobPosts}">
-                    <h3 th:if="${completedjobPosts.size()==0}">모집완료된 공고가 없습니다.</h3>
-                    <ul>
-                        <li th:each="CP : ${completedjobPosts}">
-                            <div th:text="'상태:' + ${CP.jobPostState}"></div>
-                            <div th:text="'작성일: '+${CP.postDate}"></div>
-                            <div th:text="'편의점이름: '+ ${CP.employerCompname}"> </div>
-                            <div th:text="'지역: '+ ${CP.location}"> </div>
-                            <div th:text="'시급: ' + ${CP.salaryPerTime}"> </div>
-                            <div th:text="'근무일: '+ ${CP.workDate}"> </div>
-                            <div th:text="${CP.workTimeFrom} + '~' + ${CP.workTimeTo}"> </div>
-
-                            <a th:href="@{/employer/jobPost/details/{id}(id=${CP.jobPost_id})}">지원자현황</a>
-                            <a th:href="@{/employer/delete/{id}(id=${CP.jobPost_id})}">공고삭제</a>
+                        <li th:each="application_ac : ${acceptedApplications}">
+                            <div th:text="'상태:' + ${application_ac.applicationState}"></div>
+                            <div th:text="'지원날짜: '+${application_ac.applyDate}"></div>
+                            <div th:text="'이름: '+ ${application_ac.name}"> </div>
+                            <div th:text="'경력: '+ ${application_ac.employeeCareer}"> </div>
+                            <div th:text="'숙련도: '+ ${application_ac.employeeLevel}"> </div>
 
                         </li>
                     </ul>

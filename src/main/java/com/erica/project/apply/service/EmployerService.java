@@ -23,6 +23,9 @@ public interface EmployerService {
     // 공고글(jobPost_id)의 Application 리스트 반환(dto로)
     List<Response_ApplicationDto> getApplications(Long jobPost_id);
 
+    // 공고글(jobPost_id)의 승인된 Application 리스트 반환(dto로)
+    List<Response_ApplicationDto> getAcceptedApplications(Long jobPost_id);
+
     //지원서 상태 수락으로 변경 및 공고글 상태 완료로 변경
     boolean acceptApplication(Long jobPost_id, Long application_id);
 

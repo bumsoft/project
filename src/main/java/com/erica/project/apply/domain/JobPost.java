@@ -41,7 +41,7 @@ public class JobPost {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long jobPost_id;
+    private Long jobPostId;
 
     //작성자 외래키
     @ManyToOne

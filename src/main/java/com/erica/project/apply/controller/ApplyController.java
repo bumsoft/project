@@ -1,6 +1,7 @@
 package com.erica.project.apply.controller;
 
 import com.erica.project.apply.dto.employee.Response_PostwithApplicationDto;
+import com.erica.project.apply.dto.employer.Response_ApplicationDto;
 import com.erica.project.exception.AlreadyApplyException;
 import com.erica.project.exception.UserNotFoundException;
 import com.erica.project.apply.dto.Request_Location;
@@ -33,10 +34,55 @@ public class ApplyController {
     ////////////////////////사장기능///////////////////////////////
     //사장 메인페이지
     @GetMapping("employer")
-    public String employer(Model model)
+    public String employer(Model model,Principal principal)
     {
+        //모든 작성 공고
+        List<Response_JobPostDto> alljobPosts = employerService.getJobPosts(principal.getName());
+        model.addAttribute("alljobPosts", alljobPosts);
+
+        //모집중인 공고
+        List<Response_JobPostDto> jobPostsRecruiting = employerService.getJobPosts_RECRUITING(principal.getName());
+        model.addAttribute("recruitingjobPosts", jobPostsRecruiting);
+
+        //모집완료된 공고
+        List<Response_JobPostDto> jobPostsCompleted = employerService.getJobPosts_COMPLETED(principal.getName());
+        model.addAttribute("completedjobPosts", jobPostsCompleted);
+
         return "Apply/employerMainPage";
     }
+
+    @GetMapping("employer/delete/{id}")
+    public String deleteJobPost(@PathVariable("id") Long id, Model model, Principal principal)
+    {
+        employerService.deleteJobPost(id);
+
+        return "redirect:/employer";
+    }
+
+    @GetMapping("employer/jobPost/details/{jobPost_id}")
+    public String detailJobPost(@PathVariable("jobPost_id") Long id, Model model, Principal principal)
+    {
+        //모든 지원자
+        List<Response_ApplicationDto> applications = employerService.getApplications(id);
+        model.addAttribute("allapplications", applications);
+
+        //승인된 지원자
+        List<Response_ApplicationDto> acceptedApplications = employerService.getAcceptedApplications(id);
+        model.addAttribute("acceptedApplications", acceptedApplications);
+
+        model.addAttribute("jobPostId", id);
+
+        return "Apply/jobPostDetail";
+    }
+
+    //승인
+    @GetMapping("employer/jobPost/details/{jobPost_id}/accept/{application_id}")
+    public String acceptApplication(@PathVariable("jobPost_id") Long jobPostId, @PathVariable("application_id") Long applicationId, Model model, Principal principal)
+    {
+        employerService.acceptApplication(jobPostId, applicationId);
+        return "redirect:/employer/jobPost/details/"+jobPostId;
+    }
+
 
     @GetMapping("employer/newJobPost")
     public String newJobPost(Model model)

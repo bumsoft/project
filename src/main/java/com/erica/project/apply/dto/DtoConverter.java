@@ -6,9 +6,6 @@ import com.erica.project.apply.dto.common.Response_JobPostDto;
 import com.erica.project.apply.dto.employee.Response_PostwithApplicationDto;
 import com.erica.project.apply.dto.employer.Response_ApplicationDto;
 
-import java.util.List;
-import java.util.Optional;
-
 //엔티티를 dto로 변환하는 메서드들을 갖는 클래스
 public class DtoConverter {
 
@@ -16,7 +13,7 @@ public class DtoConverter {
     {
         Response_JobPostDto dto = new Response_JobPostDto();
 
-        dto.setJobPost_id(jobPost.getJobPost_id());
+        dto.setJobPost_id(jobPost.getJobPostId());
         dto.setEmployerCompname(jobPost.getEmployerCompname());
         dto.setLocation(jobPost.getLocation());
         dto.setSalaryPerTime(jobPost.getSalaryPerTime());
@@ -32,7 +29,7 @@ public class DtoConverter {
     public static Response_PostwithApplicationDto ToPostwithApplicationDto(Application application)
     {
         Response_PostwithApplicationDto dto = new Response_PostwithApplicationDto();
-        dto.setJobPost_id(application.getJobPost().getJobPost_id());
+        dto.setJobPost_id(application.getJobPost().getJobPostId());
         dto.setEmployerCompname(application.getJobPost().getEmployerCompname());
         dto.setLocation(application.getJobPost().getLocation());
         dto.setSalaryPerTime(application.getJobPost().getSalaryPerTime());
@@ -53,6 +50,7 @@ public class DtoConverter {
     public static Response_ApplicationDto ToApplicationDto(Application application)
     {
         Response_ApplicationDto dto = new Response_ApplicationDto();
+        dto.setApplication_id(application.getApplication_id());
         dto.setName(application.getEmployee().getName());
         dto.setEmployeeCareer(application.getEmployee().getEmployeeCareer());
         dto.setEmployeeLevel(application.getEmployee().getEmployeeLevel());

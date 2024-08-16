@@ -9,6 +9,8 @@ import lombok.Setter;
 @Setter
 public class Response_ApplicationDto {
 
+    private Long application_id;
+
     //유저정보 start
     private String name;
 

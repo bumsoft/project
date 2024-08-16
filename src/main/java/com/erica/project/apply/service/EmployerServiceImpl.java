@@ -3,6 +3,7 @@ package com.erica.project.apply.service;
 import com.erica.project.User.repository.EmployeeRepository;
 import com.erica.project.User.repository.EmployerRepository;
 import com.erica.project.apply.domain.Application;
+import com.erica.project.apply.domain.ApplicationState;
 import com.erica.project.apply.domain.JobPost;
 import com.erica.project.apply.domain.JobPostState;
 import com.erica.project.apply.dto.DtoConverter;
@@ -82,9 +83,21 @@ public class EmployerServiceImpl implements EmployerService {
     @Override
     public List<Response_ApplicationDto> getApplications(Long jobPost_id)
     {
-        List<Application> applications = applicationRepository.findByJobPostId(jobPost_id);
+        List<Application> applications = applicationRepository.findByJobPost_JobPostId(jobPost_id);
         List<Response_ApplicationDto> applicationDtos = new ArrayList<>();
         for (Application application : applications) {
+            applicationDtos.add(DtoConverter.ToApplicationDto(application));
+        }
+        return applicationDtos;
+    }
+
+    @Override
+    public List<Response_ApplicationDto> getAcceptedApplications(Long jobPost_id)
+    {
+        List<Application> applicationsAC = applicationRepository.findByJobPost_JobPostIdAndApplicationState(jobPost_id, ApplicationState.ACCEPT);
+        List<Response_ApplicationDto> applicationDtos = new ArrayList<>();
+        for(Application application :applicationsAC)
+        {
             applicationDtos.add(DtoConverter.ToApplicationDto(application));
         }
         return applicationDtos;

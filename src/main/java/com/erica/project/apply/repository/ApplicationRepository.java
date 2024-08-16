@@ -16,7 +16,9 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
 
     List<Application> findByEmployeeUsernameAndJobPostJobPostState(String username, JobPostState state);
 
-    List<Application> findByJobPostId(Long jobPost_id);
+    List<Application> findByJobPost_JobPostId(Long jobPost_id);
+
+    List<Application> findByJobPost_JobPostIdAndApplicationState(Long jobPost_id, ApplicationState state);
 
     boolean existsByJobPostAndEmployeeUsername(JobPost jobPost, String username);
 

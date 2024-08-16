@@ -118,7 +118,7 @@ class EmployeeServiceImplTest {
     @Test
     void 지원하기() throws UserNotFoundException, ApplicationNotFoundException
     {
-        Application application = employeeService.applyJobPost(jobPost1.getJobPost_id(), employee.getUsername());
+        Application application = employeeService.applyJobPost(jobPost1.getJobPostId(), employee.getUsername());
 
         Application application_get = employeeService.getApplication(application.getApplication_id());
 
