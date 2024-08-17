@@ -12,6 +12,7 @@ import com.erica.project.apply.dto.employer.Request_JobPostDto;
 import com.erica.project.apply.dto.employer.Response_ApplicationDto;
 import com.erica.project.apply.repository.ApplicationRepository;
 import com.erica.project.apply.repository.JobPostRepository;
+import com.erica.project.exception.ApplicationNotFoundException;
 import com.erica.project.exception.JobPostNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -127,6 +128,21 @@ public class EmployerServiceImpl implements EmployerService {
         if(jobPost.isPresent()) {
             jobPostRepository.delete(jobPost.get());
         } else throw new JobPostNotFoundException("JobPost not found");
+        return true;
+    }
+
+
+    //알바생 점수주기
+    @Override
+    public boolean giveScore(Long application_id, int score) throws ApplicationNotFoundException
+    {
+        Optional<Application> _application = applicationRepository.findById(application_id);
+
+        if(_application.isEmpty()){throw new ApplicationNotFoundException("application not found");}
+
+        Application application = _application.get();
+
+        application.getEmployee().updateLevel(score);
         return true;
     }
 }

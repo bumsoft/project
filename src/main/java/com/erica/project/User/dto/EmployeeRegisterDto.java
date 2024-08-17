@@ -21,7 +21,7 @@ public class EmployeeRegisterDto extends UserRegisterDto {
     @NotEmpty(message="경력 입력하세요.")
     private String employeeCareer;
 
-   private Employee_Level  EmployeeLevel = Employee_Level.LEVEL1;
+   private Employee_Level  EmployeeLevel = Employee_Level.LEVEL0;
 
    // @Setter
    // private Set<BrandName> Employee_brands;

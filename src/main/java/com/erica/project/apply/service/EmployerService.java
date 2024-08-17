@@ -2,6 +2,7 @@ package com.erica.project.apply.service;
 import com.erica.project.apply.dto.common.Response_JobPostDto;
 import com.erica.project.apply.dto.employer.Request_JobPostDto;
 import com.erica.project.apply.dto.employer.Response_ApplicationDto;
+import com.erica.project.exception.ApplicationNotFoundException;
 
 import java.util.List;
 
@@ -31,4 +32,7 @@ public interface EmployerService {
 
     //공고글 삭제하기
     boolean deleteJobPost(Long jobPost_id);
+
+    //알바생 점수주기
+    boolean giveScore(Long application_id, int score) throws ApplicationNotFoundException;
 }
