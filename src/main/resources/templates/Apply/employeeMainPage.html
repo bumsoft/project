@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,30 +14,34 @@
         }
 
         body {
-            font-family: 'Jalnan', sans-serif;
-            background-color: #f8f9fa;
+            font-family: 'Jalnan', sans-serif;;
             margin: 0;
             padding: 0;
         }
-        .wrapper {
-            width: 100%;
-            height: 100vh;
+
+        header {
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #ebecf0;
-            overflow: hidden;
+            height: 100px;
+            min-height: 80px;
+            background: #38B6FF;
+
+            position:relative;
+
         }
-        .container {
-            border-radius: 10px;
-            box-shadow: -5px -5px 10px #fff, 5px 5px 10px #babebc;
+        .logo {
+            height: 100px;
+        }
+
+        .right-link {
             position: absolute;
-            width: 60%;
-            min-height: 60%;
-            min-width: 60%;
-            max-width: 1000px;
-            max-height: 1000px;
-            overflow: hidden;
+            right: 20px;
+            bottom: 10px;
+            font-size: 15pt;
+            font-weight:bold;
+            text-decoration: none;
+            color: rgb(255, 255, 255);
         }
 
         h1 {
@@ -48,11 +53,6 @@
             margin: 0;
         }
 
-        .menu-buttons {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-        }
 
         .menu-buttons button {
             background-color: #007bff;
@@ -104,7 +104,7 @@
         }
 
         button[type="submit"] {
-            background-color: #28a745;
+            background-color: #38B6FF;
             color: #fff;
             padding: 10px 20px;
             border: none;
@@ -114,7 +114,7 @@
         }
 
         button[type="submit"]:hover {
-            background-color: #218838;
+            background-color: #0056b3;
         }
 
         .results-container {
@@ -154,26 +154,40 @@
         }
 
         li {
+            width:640px;
+            height:288px;
+
+
             background-color: #f1f1f1;
             padding: 10px;
             border-radius: 4px;
             font-size: 14px;
-            color: #333;
             margin-bottom: 10px;
         }
+        .postTitle{
+            font-size:32px;
+            width:390px;
+            height:40px;
+            margin-bottom:10px;
+        }
+        .postContent{
+            font-size:20px;
+            margin-bottom:7px;
+        }
+
+
     </style>
 </head>
 <body>
-<div class="wrapper">
-    <div class="container">
-        <h1>알바 메인페이지</h1>
+<header>
+    <img src="/logo.png" alt="Logo" class="logo">
+    <a class="right-link" sec:authorize="isAnonymous()" th:href="@{/login}" >로그인</a>
+    <a class="right-link" sec:authorize="isAuthenticated()" th:href="@{/logout}" >로그아웃</a>
+</header>
 
-        <div class="menu-buttons">
-            <button type="button">홈</button>
-            <button type="button">채용정보</button>
-            <button type="button">지원현황</button>
-            <button type="button">마이페이지</button>
-        </div>
+
+
+        <h1>알바 메인페이지</h1>
 
         <form th:action="@{/employee/search}" th:object="${search}" method="post">
             <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
@@ -192,11 +206,11 @@
                     <h3 th:if="${alljobPosts.size()==0}">공고가 없습니다.</h3>
                     <ul>
                         <li th:each="jobPost : ${alljobPosts}">
-                            <div th:text="'편의점이름: '+ ${jobPost.employerCompname}"> </div>
-                            <div th:text="'지역: '+ ${jobPost.location}"> </div>
-                            <div th:text="'시급: ' + ${jobPost.salaryPerTime}+'원'"> </div>
-                            <div th:text="'근무일: '+ ${jobPost.workDate}"> </div>
-                            <div th:text="${jobPost.workTimeFrom} + '~' + ${jobPost.workTimeTo}"> </div>
+                            <div class="postTitle" th:text="${jobPost.employerCompname}"> </div>
+                            <div class="postContent" th:text="'지역: '+ ${jobPost.location}"> </div>
+                            <div class="postContent" th:text="'시급: ' + ${jobPost.salaryPerTime}+'원'"> </div>
+                            <div class="postContent" th:text="'근무일: '+ ${jobPost.workDate}"> </div>
+                            <div class="postContent" th:text="${jobPost.workTimeFrom} + '~' + ${jobPost.workTimeTo}"> </div>
 
                             <a th:href="@{/employee/apply/{id}(id=${jobPost.jobPost_id})}">신청</a>
                         </li>
@@ -210,11 +224,11 @@
                     <h3 th:if="${jobPosts.size()==0}">공고가 없습니다.</h3>
                     <ul>
                         <li th:each="jobPost : ${jobPosts}">
-                            <div th:text="'편의점이름: '+ ${jobPost.employerCompname}"> </div>
-                            <div th:text="'지역: '+ ${jobPost.location}"> </div>
-                            <div th:text="'시급: ' + ${jobPost.salaryPerTime}"> </div>
-                            <div th:text="'근무일: '+ ${jobPost.workDate}"> </div>
-                            <div th:text="${jobPost.workTimeFrom} + '~' + ${jobPost.workTimeTo}"> </div>
+                            <div class="postTitle" th:text="${jobPost.employerCompname}"> </div>
+                            <div class="postContent" th:text="'지역: '+ ${jobPost.location}"> </div>
+                            <div class="postContent" th:text="'시급: ' + ${jobPost.salaryPerTime}"> </div>
+                            <div class="postContent" th:text="'근무일: '+ ${jobPost.workDate}"> </div>
+                            <div class="postContent" th:text="${jobPost.workTimeFrom} + '~' + ${jobPost.workTimeTo}"> </div>
                             <a th:href="@{/employee/apply/{id}(id=${jobPost.jobPost_id})}">신청</a>
 
                         </li>
@@ -231,11 +245,12 @@
                         <li th:each="AP : ${applyJobPosts}">
                             <div th:text="'상태:' + ${AP.applicationState}"></div>
                             <div th:text="'지원한 날짜:' + ${AP.applyDate}"></div>
-                            <div th:text="'편의점이름: '+ ${AP.employerCompname}"> </div>
-                            <div th:text="'지역: '+ ${AP.location}"> </div>
-                            <div th:text="'시급: ' + ${AP.salaryPerTime}"> </div>
-                            <div th:text="'근무일: '+ ${AP.workDate}"> </div>
-                            <div th:text="${AP.workTimeFrom} + '~' + ${AP.workTimeTo}"> </div>
+
+                            <div class="postContent" th:text="${AP.employerCompname}"> </div>
+                            <div class="postContent" th:text="'지역: '+ ${AP.location}"> </div>
+                            <div class="postContent" th:text="'시급: ' + ${AP.salaryPerTime}"> </div>
+                            <div class="postContent" th:text="'근무일: '+ ${AP.workDate}"> </div>
+                            <div class="postContent" th:text="${AP.workTimeFrom} + '~' + ${AP.workTimeTo}"> </div>
                             <a th:href="@{/employee/apply/cancel/{id}(id=${AP.application_id})}">신청 취소</a>
 
                         </li>
@@ -244,7 +259,6 @@
             </div>
 
         </div>
-    </div>
-</div>
+
 </body>
 </html>
