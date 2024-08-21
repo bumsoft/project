@@ -56,6 +56,7 @@
             margin-right:200px;
 
 
+
             display: flex;
             justify-content: center;
 
@@ -242,71 +243,72 @@
     <a class="right-link" sec:authorize="isAuthenticated()" th:href="@{/logout}" >로그아웃</a>
 </header>
 
-<form th:action="@{/employee/search}" th:object="${search}" method="post">
-    <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+        <form th:action="@{/employee/search}" th:object="${search}" method="post">
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
 
-    <label for="Location">지역:</label>
-    <input type="text" id="Location" th:field="*{location}" required/>
+            <label for="Location">지역:</label>
+            <input type="text" id="Location" th:field="*{location}" required/>
 
-    <button type="submit">검색</button>
-</form>
+            <button type="submit">검색</button>
+        </form>
 
-<!-- 모든 공고를 보여주는 부분 -->
-<div class="temp">모든공고</div>
-<div th:if="${alljobPosts}">
-    <div class="temp" th:if="${alljobPosts.size()==0}" style="top:360px; font-size:10pt;">공고가 없습니다.</div>
-    <div class="postBox" th:each="jobPost : ${alljobPosts}" th:style="'top: ' + (${alljobPosts.indexOf(jobPost)} * 308 + 360) + 'px;'">
+        <!-- 검색 결과를 보여주는 부분 -->
 
-        <div class="post-title" th:text="${jobPost.employerCompname}"> </div>
+        <div class="temp" th:text="'검색결과: ' + ${location}"></div>
+        <div th:if="${jobPosts}">
+            <div class="temp" th:if="${jobPosts.size()==0}" style="top:360px; font-size:10pt;">검색된 공고가 없습니다.</div>
+                <div class="postBox" th:each="jobPost : ${jobPosts}" th:style="'top: ' + (${jobPosts.indexOf(jobPost)} * 308 + 360) + 'px;'">
 
-
-        <div class="post-additional" style="top: 83px; left: 24px;">지역</div>
-        <div class="post-additional" style="top: 83px; left: 177px;" th:text="${jobPost.location}"> </div>
-
-        <div class="post-additional" style="top: 119px; left: 24px;">근무날짜</div>
-        <div class="post-additional" style="top: 119px; left: 177px;" th:text="${jobPost.workDate}"></div>
-
-        <div class="post-additional" style="top: 155px; left: 24px;">시간대</div>
-        <div class="post-additional" style="top: 155px; left: 177px;" th:text="${jobPost.workTimeFrom} + '~' + ${jobPost.workTimeTo}"> </div>
-
-        <div class="post-salarybox" th:text="${jobPost.salaryPerTime}+'원'"></div>
-
-        <a class="apply-text" th:href="@{/employee/apply/{id}(id=${jobPost.jobPost_id})}">신청</a>
+                    <div class="post-title" th:text="${jobPost.employerCompname}"> </div>
 
 
-    </div>
-</div>
+                    <div class="post-additional" style="top: 83px; left: 24px;">지역</div>
+                    <div class="post-additional" style="top: 83px; left: 177px;" th:text="${jobPost.location}"> </div>
 
-<div class="temp2">신청한 공고</div>
-<div th:if="${applyJobPosts}">
-    <div class="temp2" th:if="${applyJobPosts.size()==0}" style="top:360px; right:695px;font-size:10pt;">신청한 공고가 없습니다.</div>
-    <div class="applyBox" th:each="AP : ${applyJobPosts}" th:style="'top: ' + (${applyJobPosts.indexOf(AP)} * 308 + 360) + 'px;'">
+                    <div class="post-additional" style="top: 119px; left: 24px;">근무날짜</div>
+                    <div class="post-additional" style="top: 119px; left: 177px;" th:text="${jobPost.workDate}"></div>
 
-        <div class="stateBox">
-            <div class="post-additional" style="top: 8px; left:40px;" th:text="${AP.applicationState}"></div>
+                    <div class="post-additional" style="top: 155px; left: 24px;">시간대</div>
+                    <div class="post-additional" style="top: 155px; left: 177px;" th:text="${jobPost.workTimeFrom} + '~' + ${jobPost.workTimeTo}"> </div>
+
+                    <div class="post-salarybox" th:text="${jobPost.salaryPerTime}+'원'"></div>
+
+                    <a class="apply-text" th:href="@{/employee/apply/{id}(id=${jobPost.jobPost_id})}">신청</a>
+
+
+                </div>
         </div>
 
-        <div class="applyDate" th:text="'지원일:' + ${AP.applyDate}"></div>
+                <div class="temp2">신청한 공고</div>
+                <div th:if="${applyJobPosts}">
+                    <div class="temp2" th:if="${applyJobPosts.size()==0}" style="top:360px; right:695px;font-size:10pt;">신청한 공고가 없습니다.</div>
+                        <div class="applyBox" th:each="AP : ${applyJobPosts}" th:style="'top: ' + (${applyJobPosts.indexOf(AP)} * 308 + 360) + 'px;'">
 
-        <div class="post-title" th:text="${AP.employerCompname}"> </div>
+                            <div class="stateBox">
+                                <div class="post-additional" style="top: 8px; left:40px;" th:text="${AP.applicationState}"></div>
+                            </div>
 
+                            <div class="applyDate" th:text="'지원일:' + ${AP.applyDate}"></div>
 
-        <div class="post-additional" style="top: 83px; left: 24px;">지역</div>
-        <div class="post-additional" style="top: 83px; left: 177px;" th:text="${AP.location}"> </div>
-
-        <div class="post-additional" style="top: 119px; left: 24px;">근무날짜</div>
-        <div class="post-additional" style="top: 119px; left: 177px;" th:text="${AP.workDate}"></div>
-
-        <div class="post-additional" style="top: 155px; left: 24px;">시간대</div>
-        <div class="post-additional" style="top: 155px; left: 177px;" th:text="${AP.workTimeFrom} + '~' + ${AP.workTimeTo}"> </div>
-
-        <div class="post-salarybox" th:text="${AP.salaryPerTime}+'원'"></div>
+                            <div class="post-title" th:text="${AP.employerCompname}"> </div>
 
 
-        <a class="cancel-text" th:href="@{/employee/apply/cancel/{id}(id=${AP.application_id})}">신청취소</a>
+                            <div class="post-additional" style="top: 83px; left: 24px;">지역</div>
+                            <div class="post-additional" style="top: 83px; left: 177px;" th:text="${AP.location}"> </div>
 
-    </div>
-</div>
-</div>
+                            <div class="post-additional" style="top: 119px; left: 24px;">근무날짜</div>
+                            <div class="post-additional" style="top: 119px; left: 177px;" th:text="${AP.workDate}"></div>
+
+                            <div class="post-additional" style="top: 155px; left: 24px;">시간대</div>
+                            <div class="post-additional" style="top: 155px; left: 177px;" th:text="${AP.workTimeFrom} + '~' + ${AP.workTimeTo}"> </div>
+
+                            <div class="post-salarybox" th:text="${AP.salaryPerTime}+'원'"></div>
+
+
+                                <a class="cancel-text" th:href="@{/employee/apply/cancel/{id}(id=${AP.application_id})}">신청취소</a>
+
+                        </div>
+                </div>
+            </div>
 </body>
 </html>

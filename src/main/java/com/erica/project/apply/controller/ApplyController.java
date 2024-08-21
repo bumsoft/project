@@ -126,9 +126,6 @@ public class ApplyController {
     public String employeeSearch(Request_Location location, Model model, Principal principal)
     {
 
-        List<Response_JobPostDto> allJobPosts = employeeService.getAllJobPosts();
-        model.addAttribute("alljobPosts", allJobPosts);
-
         List<Response_JobPostDto> list = employeeService.getJobPostsByLocation(location.getLocation(), principal.getName());
         model.addAttribute("jobPosts", list);
         model.addAttribute("search", new Request_Location());
@@ -137,7 +134,7 @@ public class ApplyController {
         List<Response_PostwithApplicationDto> applyJobPosts = employeeService.getApplicationsByusername(principal.getName());
         model.addAttribute("applyJobPosts", applyJobPosts);
 
-        return "Apply/employeeMainPage";
+        return "Apply/employeeMainPageSearch";
     }
 
     @GetMapping("employee/apply/{jobPost_id}")
