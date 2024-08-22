@@ -32,11 +32,18 @@ public class ApplyController {
 
 
     ////////////////////////사장기능///////////////////////////////
+    @GetMapping("employer/star")
+    public String star(Model model)
+    {
+        return "Apply/starTemp";
+    }
+
+
     //사장 메인페이지
     @GetMapping("employer")
     public String employer(Model model,Principal principal)
     {
-        //모든 작성 공고
+        //모든 작성 공고 => 필요없음. 지우기 봐서 나중에
         List<Response_JobPostDto> alljobPosts = employerService.getJobPosts(principal.getName());
         model.addAttribute("alljobPosts", alljobPosts);
 

@@ -27,11 +27,21 @@
             min-height: 80px;
             background: #38B6FF;
 
+
             position:relative;
 
         }
         .logo {
             height: 100px;
+        }
+
+        h1 {
+            padding: 20px;
+            color: #000000;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            text-align: center;
+            margin: 0;
         }
 
         .right-link {
@@ -60,9 +70,6 @@
             justify-content: center;
 
             align-items: center;
-
-
-
         }
 
         label {
@@ -92,9 +99,6 @@
         button[type="submit"]:hover {
             background-color: #0056b3;
         }
-
-
-
         .postBox{
             position:absolute;
             width:640px;
@@ -241,6 +245,7 @@
     <a class="right-link" sec:authorize="isAnonymous()" th:href="@{/login}" >로그인</a>
     <a class="right-link" sec:authorize="isAuthenticated()" th:href="@{/logout}" >로그아웃</a>
 </header>
+<h1>알바생 메인페이지</h1>
 
 <form th:action="@{/employee/search}" th:object="${search}" method="post">
     <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>

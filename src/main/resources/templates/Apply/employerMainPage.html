@@ -27,11 +27,22 @@
             min-height: 80px;
             background: #38B6FF;
 
+
             position:relative;
 
         }
         .logo {
             height: 100px;
+        }
+
+
+        h1 {
+            padding: 20px;
+            color: #000000;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            text-align: center;
+            margin: 0;
         }
 
         .right-link {
@@ -44,44 +55,6 @@
             color: rgb(255, 255, 255);
         }
 
-        .right-link2 {
-            position: absolute;
-            right: 60px;
-            font-size: 15pt;
-            font-weight:bold;
-            text-decoration: none;
-            color: rgb(0, 0, 0);
-        }
-
-        h1 {
-            padding: 20px;
-            color: #000000;
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
-            text-align: center;
-            margin: 0;
-        }
-
-        .menu-buttons {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-        }
-
-        .menu-buttons button {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16pt;
-            margin: 0 10px;
-        }
-
-        .menu-buttons button:hover {
-            background-color: #0056b3;
-        }
 
         form {
             background-color: #fff;
@@ -90,17 +63,14 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             margin-top: 30px;
 
-            margin-left:30px;
-            margin-right:30px;
+            margin-left:200px;
+            margin-right:200px;
 
 
             display: flex;
             justify-content: center;
 
             align-items: center;
-
-
-
         }
 
         label {
@@ -118,7 +88,7 @@
         }
 
         button[type="submit"] {
-            background-color: #28a745;
+            background-color: #38B6FF;
             color: #fff;
             padding: 10px 20px;
             border: none;
@@ -128,53 +98,179 @@
         }
 
         button[type="submit"]:hover {
-            background-color: #218838;
+            background-color: #0056b3;
+        }
+        .postBox{
+            position:absolute;
+            width:640px;
+            height:278px;
+            border:1px solid #007BFF;
+            border-radius: 10px;
+
+            left:200px;
+        }
+        .applyBox{
+            position:absolute;
+            width:640px;
+            height:288px;
+            border:1px solid #f80000;
+            border-radius: 10px;
+
+            right:200px;
         }
 
-        .results-container {
+
+        /* 공고 제목 */
+        .post-title {
+            position: absolute;
+            width: 394px;
+            height: 40px;
+            left: 24px;
+            top: 19px;
+            font-style: normal;
+            font-weight: 700;
+            font-size: 32px;
+            line-height: 46px;
             display: flex;
-            justify-content: center;
-            width: 100%;
-            margin-top: 30px;
+            align-items: center;
+            color: #007BFF;
+        }
+        /* 공고 기타정보 */
+        .post-additional {
+            position: absolute;
+            /*font-family: 'Noto Sans KR';*/
+            font-style: normal;
+            font-weight: 500;
+            font-size: 20px;
+            line-height: 29px;
+            display: flex;
+            align-items: center;
+        }
+        /* 시급 박스 */
+        .post-salarybox {
+            position: absolute;
+            width: 172px;
+            height: 46px;
+            background: #DDEDFF;
+            border-radius: 10px;
+
+            top: 203px;
+            left:24px;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            font-size: 20px;
+        }
+        .apply-text1 {
+            background: #007BFF;
+            border-radius: 10px;
+            justify-content:center;
+            align-items:center;
+
+            position: absolute;
+            width: 140px;
+            height: 46px;
+            right:120px;
+            top:203px;
+            font-style: normal;
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 35px;
+            display: flex;
+            color: #FFFFFF;
+
+            text-decoration:none;
+        }
+        .apply-text2 {
+            background: #007BFF;
+            border-radius: 10px;
+            justify-content:center;
+            align-items:center;
+
+            position: absolute;
+            width: 95px;
+            height: 46px;
+            right:10px;
+            top:203px;
+            font-style: normal;
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 35px;
+            display: flex;
+            color: #FFFFFF;
+
+            text-decoration:none;
+        }
+        .apply-text3 {
+            background: #007BFF;
+            border-radius: 10px;
+            justify-content:center;
+            align-items:center;
+
+            position: absolute;
+            width: 140px;
+            height: 46px;
+            right:10px;
+            top:203px;
+            font-style: normal;
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 35px;
+            display: flex;
+            color: #FFFFFF;
+
+            text-decoration:none;
         }
 
-        .results-container.with-location {
-            justify-content: space-between;
+        .temp{
+            position:absolute;
+            top:330px;
+            left:200px;
+            font-size:17pt;
+        }
+        .temp2{
+            position:absolute;
+            top:330px;
+            right:720px;
+            font-size:17pt;
         }
 
-        .results-section {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px #38B6FF;
-            width: 48%;
-            margin-left:60px;
-            margin-right:60px;
+        .posting {
+            background: #007BFF;
+            border-radius: 10px;
+            justify-content:center;
+            align-items:center;
+            display: flex;
+            width: 140px;
+            height: 46px;
+
+            position: absolute;
+            top:150px;
+            right: 400px;
+            font-size: 15pt;
+            font-weight:bold;
+            text-decoration: none;
+            color: rgb(0, 0, 0);
         }
 
-        .results-section.full-width {
-            width: 100%;
+        .star {
+            background: #007BFF;
+            border-radius: 10px;
+            justify-content:center;
+            align-items:center;
+            display: flex;
+            width: 180px;
+            height: 46px;
+
+            position: absolute;
+            top:150px;
+            right: 200px;
+            font-size: 15pt;
+            font-weight:bold;
+            text-decoration: none;
+            color: rgb(0, 0, 0);
         }
 
-        .results-section h2 {
-            color: #007bff;
-            margin-bottom: 15px;
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        li {
-            background-color: rgba(163, 224, 243, 0.43);
-            padding: 10px;
-            border-radius: 4px;
-            font-size: 14pt;
-            color: #000000;
-            margin-bottom: 10px;
-        }
     </style>
 </head>
 <body>
@@ -183,77 +279,61 @@
     <a class="right-link" sec:authorize="isAnonymous()" th:href="@{/login}" >로그인</a>
     <a class="right-link" sec:authorize="isAuthenticated()" th:href="@{/logout}" >로그아웃</a>
 </header>
-        <h1>사장 메인페이지</h1>
 
-        <a class="right-link2" href="employer/newJobPost">공고글 작성</a><br><br>
+<h1>사장님 메인페이지</h1>
+<a class="posting" href="employer/newJobPost">공고글 작성</a><br><br>
+<a class="star" href="employer/star">지난 알바 별점주기</a><br><br>
 
-        <div class="results-container">
-            <div class="results-section">
-                <h2>작성한 모든 공고</h2>
-                <div th:if="${alljobPosts}">
-                    <h3 th:if="${alljobPosts.size()==0}">공고가 없습니다.</h3>
-                    <ul>
-                        <li th:each="AP : ${alljobPosts}">
-                            <div th:text="'상태:' + ${AP.jobPostState}"></div>
-                            <div th:text="'작성일: '+${AP.postDate}"></div><br><br>
-                            <div th:text="'편의점이름: '+ ${AP.employerCompname}"> </div><br>
-                            <div th:text="'지역: '+ ${AP.location}"> </div><br>
-                            <div th:text="'시급: ' + ${AP.salaryPerTime}+'원'"> </div><br>
-                            <div th:text="'근무일: '+ ${AP.workDate}"> </div>
-                            <div th:text="${AP.workTimeFrom} + '~' + ${AP.workTimeTo}"> </div><br>
+<!-- 모집중인 공고 보여주는 부분 -->
+<div class="temp">모집중</div>
+<div th:if="${recruitingjobPosts}">
+    <div class="temp" th:if="${recruitingjobPosts.size()==0}" style="top:360px; font-size:10pt;">작성한 공고가 없습니다.</div>
+    <div class="postBox" th:each="jobPost : ${recruitingjobPosts}" th:style="'top: ' + (${recruitingjobPosts.indexOf(jobPost)} * 308 + 360) + 'px;'">
 
-                            <a th:href="@{/employer/jobPost/details/{id}(id=${AP.jobPost_id})}">지원자현황</a>
-                            <a th:href="@{/employer/delete/{id}(id=${AP.jobPost_id})}">공고삭제</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+        <div class="post-title" th:text="${jobPost.employerCompname}"> </div>
 
-            <div class="results-section" >
-                <h2>모집중</h2>
-                <div th:if="${recruitingjobPosts}">
-                    <h3 th:if="${recruitingjobPosts.size()==0}">모집중인 공고가 없습니다.</h3>
-                    <ul>
-                        <li th:each="RP : ${recruitingjobPosts}">
-                            <div th:text="'상태:' + ${RP.jobPostState}"></div>
-                            <div th:text="'작성일: '+${RP.postDate}"></div><br><br>
-                            <div th:text="'편의점이름: '+ ${RP.employerCompname}"> </div><br>
-                            <div th:text="'지역: '+ ${RP.location}"> </div><br>
-                            <div th:text="'시급: ' + ${RP.salaryPerTime}"> </div><br>
-                            <div th:text="'근무일: '+ ${RP.workDate}"> </div><br>
-                            <div th:text="${RP.workTimeFrom} + '~' + ${RP.workTimeTo}"> </div><br>
 
-                            <a th:href="@{/employer/jobPost/details/{id}(id=${RP.jobPost_id})}">지원자현황</a>
-                            <a th:href="@{/employer/delete/{id}(id=${RP.jobPost_id})}">공고삭제</a>
+        <div class="post-additional" style="top: 83px; left: 24px;">지역</div>
+        <div class="post-additional" style="top: 83px; left: 177px;" th:text="${jobPost.location}"> </div>
 
-                        </li>
-                    </ul>
-                </div>
-            </div>
+        <div class="post-additional" style="top: 119px; left: 24px;">근무날짜</div>
+        <div class="post-additional" style="top: 119px; left: 177px;" th:text="${jobPost.workDate}"></div>
 
-            <div class="results-section" >
-                <h2>모집완료</h2>
-                <div th:if="${completedjobPosts}">
-                    <h3 th:if="${completedjobPosts.size()==0}">모집완료된 공고가 없습니다.</h3>
-                    <ul>
-                        <li th:each="CP : ${completedjobPosts}">
-                            <div th:text="'상태:' + ${CP.jobPostState}"></div>
-                            <div th:text="'작성일: '+${CP.postDate}"></div><br><br>
-                            <div th:text="'편의점이름: '+ ${CP.employerCompname}"> </div><br>
-                            <div th:text="'지역: '+ ${CP.location}"> </div><br>
-                            <div th:text="'시급: ' + ${CP.salaryPerTime}"> </div><br>
-                            <div th:text="'근무일: '+ ${CP.workDate}"> </div>
-                            <div th:text="${CP.workTimeFrom} + '~' + ${CP.workTimeTo}"> </div><br>
+        <div class="post-additional" style="top: 155px; left: 24px;">시간대</div>
+        <div class="post-additional" style="top: 155px; left: 177px;" th:text="${jobPost.workTimeFrom} + '~' + ${jobPost.workTimeTo}"> </div>
 
-                            <a th:href="@{/employer/jobPost/details/{id}(id=${CP.jobPost_id})}">지원자현황</a>
-                            <a th:href="@{/employer/delete/{id}(id=${CP.jobPost_id})}">공고삭제</a>
+        <div class="post-salarybox" th:text="${jobPost.salaryPerTime}+'원'"></div>
 
-                        </li>
-                    </ul>
-                </div>
-            </div>
+        <a class="apply-text1" th:href="@{/employer/jobPost/details/{id}(id=${jobPost.jobPost_id})}">지원자 보기</a>
+        <a class="apply-text2" th:href="@{/employer/delete/{id}(id=${jobPost.jobPost_id})}">삭제</a>
 
-        </div>
 
+    </div>
+</div>
+
+<div class="temp2">모집완료</div>
+<div th:if="${completedjobPosts}">
+    <div class="temp2" th:if="${completedjobPosts.size()==0}" style="top:360px; right:695px;font-size:10pt;">완료된 공고가 없습니다.</div>
+    <div class="applyBox" th:each="CP : ${completedjobPosts}" th:style="'top: ' + (${completedjobPosts.indexOf(CP)} * 308 + 360) + 'px;'">
+
+        <div class="post-title" th:text="${CP.employerCompname}"> </div>
+
+
+        <div class="post-additional" style="top: 83px; left: 24px;">지역</div>
+        <div class="post-additional" style="top: 83px; left: 177px;" th:text="${CP.location}"> </div>
+
+        <div class="post-additional" style="top: 119px; left: 24px;">근무날짜</div>
+        <div class="post-additional" style="top: 119px; left: 177px;" th:text="${CP.workDate}"></div>
+
+        <div class="post-additional" style="top: 155px; left: 24px;">시간대</div>
+        <div class="post-additional" style="top: 155px; left: 177px;" th:text="${CP.workTimeFrom} + '~' + ${CP.workTimeTo}"> </div>
+
+        <div class="post-salarybox" th:text="${CP.salaryPerTime}+'원'"></div>
+
+
+        <a class="apply-text3" th:href="@{/employer/jobPost/details/{id}(id=${CP.jobPost_id})}">지원자 보기</a>
+
+    </div>
+</div>
 </body>
 </html>

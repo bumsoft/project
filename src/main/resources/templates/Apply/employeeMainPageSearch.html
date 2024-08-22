@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>알바 메인페이지</title>
+    <title>알바 검색페이지</title>
     <style>
         @font-face {
             font-family: 'Jalnan';
@@ -33,7 +33,14 @@
         .logo {
             height: 100px;
         }
-
+        h1 {
+            padding: 20px;
+            color: #000000;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            text-align: center;
+            margin: 0;
+        }
         .right-link {
             position: absolute;
             right: 20px;
@@ -242,6 +249,8 @@
     <a class="right-link" sec:authorize="isAnonymous()" th:href="@{/login}" >로그인</a>
     <a class="right-link" sec:authorize="isAuthenticated()" th:href="@{/logout}" >로그아웃</a>
 </header>
+
+<h1>알바생 검색페이지</h1>
 
         <form th:action="@{/employee/search}" th:object="${search}" method="post">
             <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>

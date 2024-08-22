@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>사장님 메인페이지</title>
+  <style>
+    @font-face {
+      font-family: 'Jalnan';
+      src: url('https://cdn.jsdelivr.net/gh/wizfile/font/Jalnan.eot');
+      src: url('https://cdn.jsdelivr.net/gh/wizfile/font/Jalnan.woff') format('woff');
+      font-style: normal;
+    }
+
+    body {
+      font-family: 'Jalnan', sans-serif;;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100px;
+      min-height: 80px;
+      background: #38B6FF;
+
+
+      position:relative;
+
+    }
+    .logo {
+      height: 100px;
+    }
+
+    .right-link {
+      position: absolute;
+      right: 20px;
+      bottom: 10px;
+      font-size: 15pt;
+      font-weight:bold;
+      text-decoration: none;
+      color: rgb(255, 255, 255);
+    }
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+    }
+    h1 {
+      padding: 20px;
+      color: #000000;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+      text-align: center;
+      margin: 0;
+    }
+
+    .card {
+      position:absolute;
+      width:400px;
+      height:240px;
+
+      top:200px;
+
+      border: 1px solid #007BFF;
+      border-radius: 10px;
+      padding: 16px;
+
+    }
+
+    .card-title {
+      color: #007BFF;
+      margin-bottom: 16px;
+      font-size: 18px;
+    }
+
+    .card-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .info p {
+      margin: 8px 0;
+      font-size: 14px;
+    }
+
+    .info p strong {
+      font-weight: bold;
+      margin-right: 8px;
+    }
+
+    .slider {
+      width: 100%;
+      margin: 16px 0;
+      -webkit-appearance: none;
+      appearance: none;
+      height: 8px;
+      background: #ddd;
+      border-radius: 4px;
+      outline: none;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .slider:hover {
+      opacity: 1;
+    }
+
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      background: #007BFF;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .slider::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      background: #007BFF;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .button {
+      background-color: #007BFF;
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      align-self: flex-end;
+    }
+
+    .button:hover {
+      background-color: #0056b3;
+    }
+
+
+
+  </style>
+</head>
+<body>
+<header>
+  <img src="/logo.png" alt="Logo" class="logo">
+  <a class="right-link" sec:authorize="isAnonymous()" th:href="@{/login}" >로그인</a>
+  <a class="right-link" sec:authorize="isAuthenticated()" th:href="@{/logout}" >로그아웃</a>
+</header>
+
+<h1> 지난 알바 별점 주기</h1>
+
+<div class="container">
+<div class="card">
+  <h2 class="card-title">세븐일레븐</h2>
+  <div class="card-content">
+    <div class="info">
+      <p><strong>근무 날짜</strong> <span>2024-08-10</span></p>
+      <p><strong>시간대</strong> <span>12:00:00 - 22:00:00</span></p>
+      <p><strong>이름</strong> <span>최정현</span></p>
+    </div>
+    <input type="range" class="slider" value="50">
+    <button class="button">별점주기</button>
+  </div>
+</div>
+</div>
+
+
+
+</body>
+</html>
