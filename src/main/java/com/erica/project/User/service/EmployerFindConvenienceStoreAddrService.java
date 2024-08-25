@@ -15,6 +15,8 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.MalformedURLException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,11 +37,15 @@ public class EmployerFindConvenienceStoreAddrService {
     {
 
         //url 생성
-        String url = "https://dapi.kakao.com/https://dapi.kakao.com"+"?query="+storeName+"?category_group_code=CS2";
+        String url = UriComponentsBuilder.fromHttpUrl("https://dapi.kakao.com/v2/local/search/keyword.json")
+                .queryParam("query", URLEncoder.encode(storeName, StandardCharsets.UTF_8))
+                .queryParam("category_group_code", "CS2")
+                .build()
+                .toUriString();
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "KakaoAK " + apiKey); // Kakao에서 요구하는 인증 방식의 접두사, 여기에 실제 API 키가 추가됨
-        HttpEntity<String> entity = new HttpEntity<String>(headers);
+        HttpEntity<String> entity = new HttpEntity<>(headers);
 
         // Api 호출
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
